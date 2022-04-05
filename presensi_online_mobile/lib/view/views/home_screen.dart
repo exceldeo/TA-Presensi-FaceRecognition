@@ -5,6 +5,7 @@ import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
 import 'package:presensi_online_mobile/view/views/appointment_screen.dart';
+import 'package:presensi_online_mobile/view/views/qr_scanner_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/card_class_widget.dart';
 import 'package:presensi_online_mobile/view/widgets/home_specialist_cardwidget.dart';
 import 'package:presensi_online_mobile/view/widgets/home_specialist_widget.dart';
@@ -99,7 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QRcodeScannerScreen()));
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

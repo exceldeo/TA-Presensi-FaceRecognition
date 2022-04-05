@@ -25,6 +25,7 @@ class PresensiCardWidget extends StatelessWidget {
         );
       },
       child: Container(
+        margin: EdgeInsets.only(bottom: 5),
         color: ColorResources.COLOR_WHITE,
         child: Column(
           children: [

@@ -287,4 +287,5 @@ class Strings {
   static const String LOGOUT = 'Logout';
   static const String NAMA = 'Nama';
   static const String NAMA1 = 'Excel Deo Cornelius';
+  static const String PINDAI_KODE_PRESENSI = 'Scan QR Code Presensi';
 }
