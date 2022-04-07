@@ -54,7 +54,8 @@
 				<div class="content-header-item">
                     <a class="font-w700" href="#">
 						{{-- <img src="https://presensi.its.ac.id/assets/media/img/myits-academics.png" alt="Logo ITS" height="40px" class="mr-5"> --}}
-						<span class="font-size-l text-its-secondary text-uppercase">E-Klenik</span>
+						<!-- <span class="font-size-l text-its-secondary text-uppercase">E-Klenik</span> -->
+						<img src="{{url('/assets/logo.png')}}" alt="Logo ITS" height="50px" class="mr-5">
 					</a>
 				</div>
 				<!-- END Toggle Sidebar -->
@@ -69,7 +70,7 @@
 						<i class="fa fa-user d-sm-none"></i>
 							<span class="d-none d-sm-inline-block">
                                 <i class="fa fa-user"></i>
-								<span>{{ Auth::user()->username }}</span>
+								<span>{{ Auth::user()->nama_dosen}}</span>
 							</span>
 						<i class="fa fa-angle-down ml-5"></i>
 					</button>

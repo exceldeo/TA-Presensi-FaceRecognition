@@ -42,21 +42,21 @@
 			</div>
 
 
-		    <form id="form-login" method="post" action="{{ route('login') }}" autocomplete="off">
+		    <form id="form-login" method="post" action="{{ route('auth') }}" autocomplete="off">
 		        @csrf
 		        <div class="text-orange" style="min-height: 20px; font-weight: bold; margin-bottom: 15px; text-align: center">
 					<small class="notification_caps" style="display: none;">Caps lock is on!</small>
-					<small class="my_its_id_required" style="display: none;">Email is required</small>
+					<small class="my_its_id_required" style="display: none;">NIP is required</small>
 				</div>
 
-                @error('email')
+                @error('nip')
                     <div class="text-orange" style="font-weight: bold; margin-bottom: 15px;">
-                        <small>{{ $errors->first('email') }}</small>
+                        <small>{{ $errors->first('nip') }}</small>
                     </div>
                 @enderror
                 <div id="inputusername" class="inputbox">
-					<input type="text" id="username" name="email" value="" required autocomplete="off">
-					<label for="">Email</label>
+					<input type="text" id="username" name="nip" value="" required autocomplete="off">
+					<label for="">NIP</label>
 		        </div>
 
 				<div id="inputpassword" class="inputbox" >
