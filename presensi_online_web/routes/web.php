@@ -26,6 +26,21 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 
     Route::prefix('kelas')->name('kelas.')->group(function () { 
         Route::get('/', 'KelasController@index')->name('index');
-        
+    });
+
+    Route::prefix('user')->name('user.')->group(function () { 
+        Route::get('/', 'UserController@index')->name('index');
+    });
+
+    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () { 
+        Route::get('/', 'MahasiswaController@index')->name('index');
+    });
+
+    Route::prefix('training')->name('training.')->group(function () { 
+        Route::get('/', 'TrainingController@index')->name('index');
+    });
+
+    Route::prefix('matkul')->name('matkul.')->group(function () { 
+        Route::get('/', 'MatkulController@index')->name('index');
     });
 });
