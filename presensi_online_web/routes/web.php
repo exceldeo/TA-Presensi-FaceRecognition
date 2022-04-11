@@ -23,5 +23,9 @@ Route::get('logout', 'DosenController@logout')->name('logout');
 
 Route::prefix('dosen')->name('dosen.')->group(function () { 
     Route::get('/', 'PagesController@index')->name('dashboard');
-    
+
+    Route::prefix('kelas')->name('kelas.')->group(function () { 
+        Route::get('/', 'KelasController@index')->name('index');
+        
+    });
 });
