@@ -12,7 +12,7 @@ MyITS Presensi
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dosen.dashboard')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="#" class="breadcrumb-item active">test</a>
+        <a href="#" class="breadcrumb-item active">Management Kelas</a>
     </nav>
 </div>
 @endsection
@@ -23,7 +23,7 @@ MyITS Presensi
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
-                <div class="font-size-lg font-w600">test </div>
+                <div class="font-size-lg font-w600">Management Kelas</div>
             </div>
             <div class="block-options">
                 <form class="pull-right mr-5 mb-5" action="#" method="GET">
