@@ -43,6 +43,7 @@ MyITS Presensi
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($users as $user)
                                         <tr>
                                             <td>
                                                 <div class="content-li" style="padding: 0 20px 0 20px;">
@@ -50,17 +51,17 @@ MyITS Presensi
                                                         <a
                                                             href="#">
                                                             <br class="d-sm-none mb-1">
-                                                            test
+                                                            {{$user->nama_dosen}}
                                                         </a>
                                                     </h5>
                                                     <span class="mr-10">
-                                                        <i class="fa fa-fw fa-calendar mr-1"></i>test
+                                                        <i class="fa fa-fw fa-calendar mr-1"></i>{{$user->nip}}
                                                     </span>
                                                     <span class="mr-10">
-                                                        <i class="si si-clock mr-1"></i>test
+                                                        <i class="si si-clock mr-1"></i>{{$user->departement}}
                                                     </span>
                                                     <span class="mr-10">
-                                                        <i class="fa fa-fw fa-clock-o mr-1"></i>test
+                                                        <i class="fa fa-fw fa-clock-o mr-1"></i>{{$user->email}}
                                                     </span>
                                                     <span class="mr-10">
                                                         <i class="fa fa-fw fa-user mr-1"></i>test
@@ -78,6 +79,7 @@ MyITS Presensi
                                                 </div>
                                             </td>
                                         </tr>
+                                @endforeach
                         </tbody>
                     </table>
                 </div>

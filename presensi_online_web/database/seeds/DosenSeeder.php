@@ -21,5 +21,14 @@ class DosenSeeder extends Seeder
             'role' => 'admin',
             'departement' => 'informatika',
         ]);
+
+        DB::table('dosen')->insert([
+            'nama_dosen' => 'excel',
+            'email' => 'excel@mail.com',
+            'password' => Hash::make('password'),
+            'nip' => 12345,
+            'role' => 'dosen',
+            'departement' => 'informatika',
+        ]);
     }
 }
