@@ -4,7 +4,6 @@ import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:presensi_online_mobile/view/views/about_doctor_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:presensi_online_mobile/view/views/detail_presensi_screen.dart';
 

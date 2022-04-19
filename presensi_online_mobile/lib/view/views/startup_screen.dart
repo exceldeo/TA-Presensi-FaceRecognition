@@ -1,5 +1,4 @@
 import 'package:presensi_online_mobile/utility/colorResources.dart';
-import 'package:presensi_online_mobile/view/views/doctor_settings_screen.dart';
 import 'package:presensi_online_mobile/view/views/home_screen.dart';
 import 'package:presensi_online_mobile/view/views/profile_screen.dart';
 import 'package:presensi_online_mobile/view/views/splash/spash_screen.dart';
@@ -7,11 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:presensi_online_mobile/view/views/training_screen.dart';
-
-import 'doctor_home_screen.dart';
-import 'doctor_screen.dart';
-import 'my_appointments.dart';
-import 'notification_screen.dart';
 
 class StartupScreen extends StatefulWidget {
   @override
