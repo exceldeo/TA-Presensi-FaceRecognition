@@ -4,18 +4,13 @@ import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
-import 'package:presensi_online_mobile/view/views/appointment_screen.dart';
+import 'package:presensi_online_mobile/view/views/checking_screen.dart';
 import 'package:presensi_online_mobile/view/views/qr_scanner_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/card_class_widget.dart';
-import 'package:presensi_online_mobile/view/widgets/home_specialist_cardwidget.dart';
-import 'package:presensi_online_mobile/view/widgets/home_specialist_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
-import 'about_doctor_screen.dart';
-import 'doctor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -101,10 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => QRcodeScannerScreen()));
+                        pushNewScreen(
+                          context,
+                          screen: CheckingScreen(),
+                          withNavBar: false,
+                          pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

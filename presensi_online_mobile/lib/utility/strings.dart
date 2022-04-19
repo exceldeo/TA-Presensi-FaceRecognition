@@ -288,4 +288,6 @@ class Strings {
   static const String NAMA = 'Nama';
   static const String NAMA1 = 'Excel Deo Cornelius';
   static const String PINDAI_KODE_PRESENSI = 'Scan QR Code Presensi';
+  static const String CHECKIN_INFORMASI = 'Check-In Informasi';
+  static const String SCAN_WAJAH = 'Scan wajah';
 }

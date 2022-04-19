@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 class QRcodeScannerScreen extends StatefulWidget {
   QRcodeScannerScreen({Key key}) : super(key: key);
@@ -31,10 +30,7 @@ class _QRcodeScannerScreenState extends State<QRcodeScannerScreen> {
               MaterialButton(
                   color: ColorResources.COLOR_WHITE,
                   padding: EdgeInsets.all(8),
-                  onPressed: () async {
-                    result = await scanner.scan();
-                    setState(() {});
-                  },
+                  onPressed: () {},
                   shape: CircleBorder(),
                   child: Image.asset(
                     'assets/Icon/camera-blue.png',

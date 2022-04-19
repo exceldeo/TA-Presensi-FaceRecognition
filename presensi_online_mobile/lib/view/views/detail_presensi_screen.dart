@@ -3,7 +3,6 @@ import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
-import 'package:presensi_online_mobile/view/views/appointment_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/button/custom_button.dart';
 import 'package:presensi_online_mobile/view/widgets/card_class_widget.dart';
 import 'package:presensi_online_mobile/view/widgets/card_presensi_widget.dart';
