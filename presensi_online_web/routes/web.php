@@ -30,6 +30,12 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 
     Route::prefix('user')->name('user.')->group(function () { 
         Route::get('/', 'UserController@index')->name('index');
+        Route::get('create', 'UserController@create')->name('create');
+        Route::post('store', 'UserController@store')->name('store');
+        Route::get('{id}/show', 'UserController@show')->name('show');
+        Route::get('{id}/edit', 'UserController@edit')->name('edit');
+        Route::patch('{id}/edit', 'UserController@update');
+        Route::delete('{id}/delete', 'UserController@destroy')->name('delete');
     });
 
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () { 

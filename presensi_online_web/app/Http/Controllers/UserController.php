@@ -13,12 +13,32 @@ class UserController extends Controller
         return view('dashboard.user.index',compact('users'));
     }
 
-    public function login()
+    public function create()
+    {
+        return view('dashboard.user.create');
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+    public function show($id)
+    {
+        //
+    }
+
+    public function edit($id)
     {
         
     }
 
-    public function authenticate(Request $request)
+    public function update(Request $request, $id)
+    {
+        
+    }
+
+    public function destroy($id)
     {
         
     }

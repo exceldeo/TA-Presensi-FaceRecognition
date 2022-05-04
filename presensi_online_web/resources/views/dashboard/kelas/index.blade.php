@@ -23,12 +23,12 @@ MyITS Presensi
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
-                <div class="font-size-lg font-w600">Management Kelas</div>
+                <div class="font-size-lg font-w600">&emsp;Management Kelas</div>
             </div>
             <div class="block-options">
                 <form class="pull-right mr-5 mb-5" action="#" method="GET">
                     <button type="submit" class="btn btn-sm btn-its-primary">
-                        <i class="fa fa-plus"></i> Create Session
+                        <i class="fa fa-plus"></i> Tambah Kelas
                     </button>
                 </form>
             </div>
@@ -39,45 +39,28 @@ MyITS Presensi
                     <table id="session_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="text-center" >Session</th>
+                                <th class="text-center" >Nama</th>
+                                <th class="text-center" >Lokasi</th>
+                                <th class="text-center" style="width:18%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="content-li" style="padding: 0 20px 0 20px;">
-                                                    <h5 class="font-size-h6 font-w500 mb-5">
-                                                        <a
-                                                            href="#">
-                                                            <br class="d-sm-none mb-1">
-                                                            test
-                                                        </a>
-                                                    </h5>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-calendar mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="si si-clock mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-clock-o mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-user mr-1"></i>test
-                                                    </span>
-                                                    <a
-                                                        href="#">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="fa fa-unlock mr-1"></i> Unlock Session</button>
-                                                    </a>
-                                                    <a
-                                                        href="#" target="_blank">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="fa fa-envelope mr-1"></i> Send Email</button>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                            @foreach($classes as $class)
+                                <tr>
+                                    <td>{{$class->nama_kelas}}</td>
+                                    <td>{{$class->lokasi_kelas}}</td>
+                                    <td>
+                                        <a href="#" >
+                                            <button class="btn btn-sm btn-danger pull-right mr-3"><i
+                                                    class="fa fa-trash mr-1"></i> Hapus</button>
+                                        </a>
+                                        <a href="#">
+                                            <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    class="fa fa-pencil mr-1"></i> Edit</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
