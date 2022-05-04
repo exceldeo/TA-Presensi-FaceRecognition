@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MahasiswaSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class MahasiswaSeeder extends Seeder
     public function run()
     {
         DB::table('mahasiswa')->insert([
-            'nrp' => 123,
+            'nrp' => '123',
             'nama_mahasiswa' => 'latip',
             'password' => Hash::make('password'),
             'img_path' => 'belum',
@@ -20,7 +21,7 @@ class MahasiswaSeeder extends Seeder
         ]);
 
         DB::table('mahasiswa')->insert([
-            'nrp' => 1234,
+            'nrp' => '1234',
             'nama_mahasiswa' => 'dinda',
             'password' => Hash::make('password'),
             'img_path' => 'belum',

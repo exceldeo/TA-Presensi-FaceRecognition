@@ -19,7 +19,7 @@ class CreateFileFotosTable extends Migration
             $table->timestamps();
 
             //foreign key
-            $table->string('nrp')->references('nrp')->on('mahasiswa');
+            $table->string('nrp_mahasiswa')->references('nrp')->on('mahasiswa');
         });
     }
 

@@ -14,7 +14,7 @@ class CreateMahasiswasTable extends Migration
     public function up()
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
-            $table->id('nrp')->unique();
+            $table->string('nrp')->primary();
             $table->string('nama_mahasiswa');
             $table->string('password');
             $table->string('img_path');
