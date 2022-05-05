@@ -59,17 +59,21 @@ MyITS Presensi
                                     <td>{{$user->departement}}</td>
                                     <td class="text-center" >
                                         @if($user->role == 'dosen')
-                                        <span class="badge badge-success">Dosen</span>
+                                        <span class="badge badge-warning">Dosen</span>
                                         @else
-                                        <span class="badge badge-danger">Admin</span>
+                                        <span class="badge badge-success">Admin</span>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#" >
+                                        <form action="{{route('dosen.user.delete', ['nip' => $user->nip])}}" 
+                                            onclick="return confirm('Apakah anda yakin?')"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                             <button class="btn btn-sm btn-danger pull-right mr-3"><i
                                                     class="fa fa-trash mr-1"></i> Hapus</button>
-                                        </a>
-                                        <a href="#">
+                                        </form>
+                                        <a href="{{route('dosen.user.edit', ['nip' => $user->nip])}}">
                                             <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                     class="fa fa-pencil mr-1"></i> Edit</button>
                                         </a>

@@ -37,7 +37,7 @@ Add User
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="">NIP</label>
-                            <input autocomplete="off" type="text" class="form-control" id="input-name" name="nip">
+                            <input required autocomplete="off" type="text" class="form-control" id="input-name" name="nip">
                         </div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@ Add User
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="">email</label>
-                            <input autocomplete="off" type="text" class="form-control" id="input-email" name="email">
+                            <label for="">Email</label>
+                            <input required autocomplete="off" type="text" class="form-control" id="input-email" name="email">
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ Add User
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="">Password</label>
-                            <input autocomplete="off" type="password" class="form-control" id="input-name" name="password">
+                            <input required autocomplete="off" type="password" class="form-control" id="input-name" name="password">
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@ Add User
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="" for="example-select">Departemen</label>
-                            <select autocomplete="off" class="form-control" id="example-select" name="departemen">
+                            <select required autocomplete="off" class="form-control" id="example-select" name="departemen">
                                 <option value="Fisika">Fisika</option>
                                 <option value="Matematika">Matematika</option>
                                 <option value="Statistika">Statistika</option>
@@ -117,7 +117,7 @@ Add User
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="" for="example-select">Role</label>
-                            <select autocomplete="off" class="form-control" id="example-select" name="role">
+                            <select required autocomplete="off" class="form-control" id="example-select" name="role">
                                 <option value="admin">admin</option>
                                 <option value="dosen">dosen</option>
                             </select>

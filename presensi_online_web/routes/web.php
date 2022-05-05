@@ -32,10 +32,10 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
         Route::get('/', 'UserController@index')->name('index');
         Route::get('create', 'UserController@create')->name('create');
         Route::post('store', 'UserController@store')->name('store');
-        Route::get('{id}/show', 'UserController@show')->name('show');
-        Route::get('{id}/edit', 'UserController@edit')->name('edit');
-        Route::patch('{id}/edit', 'UserController@update');
-        Route::delete('{id}/delete', 'UserController@destroy')->name('delete');
+        Route::get('{nip}/show', 'UserController@show')->name('show');
+        Route::get('{nip}/edit', 'UserController@edit')->name('edit');
+        Route::patch('{nip}/edit', 'UserController@update');
+        Route::delete('{nip}/delete', 'UserController@destroy')->name('delete');
     });
 
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () { 
