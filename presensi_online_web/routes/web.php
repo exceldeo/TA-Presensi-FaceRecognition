@@ -40,6 +40,12 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () { 
         Route::get('/', 'MahasiswaController@index')->name('index');
+        Route::get('create', 'MahasiswaController@create')->name('create');
+        Route::post('store', 'MahasiswaController@store')->name('store');
+        Route::get('{nrp}/show', 'MahasiswaController@show')->name('show');
+        Route::get('{nrp}/edit', 'MahasiswaController@edit')->name('edit');
+        Route::patch('{nrp}/edit', 'MahasiswaController@update');
+        Route::delete('{nrp}/delete', 'MahasiswaController@destroy')->name('delete');
     });
 
     Route::prefix('training')->name('training.')->group(function () { 
@@ -48,5 +54,15 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 
     Route::prefix('matkul')->name('matkul.')->group(function () { 
         Route::get('/', 'MatkulController@index')->name('index');
+    });
+
+    Route::prefix('jadwal')->name('jadwal.')->group(function () { 
+        Route::get('/', 'JadwalController@index')->name('index');
+        Route::get('create', 'JadwalController@create')->name('create');
+        Route::post('store', 'JadwalController@store')->name('store');
+        Route::get('{nrp}/show', 'JadwalController@show')->name('show');
+        Route::get('{nrp}/edit', 'JadwalController@edit')->name('edit');
+        Route::patch('{nrp}/edit', 'JadwalController@update');
+        Route::delete('{nrp}/delete', 'JadwalController@destroy')->name('delete');
     });
 });

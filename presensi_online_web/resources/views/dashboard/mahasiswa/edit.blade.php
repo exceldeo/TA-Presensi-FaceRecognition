@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Edit User
+Add User
 @endsection
 @section('css')
 <link rel="stylesheet"

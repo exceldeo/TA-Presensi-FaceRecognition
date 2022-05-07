@@ -57,8 +57,26 @@ Dashboard
                             <p class="" style="color: #013880">Management Kelas</p>
                         </div>
                     </a>
-                </div>  
-
+                </div> 
+                
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dosen.matkul.index')}}">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-book" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Mata Kuliah</p>
+                        </div>
+                    </a>
+                </div> 
+                 
+                <div class="col-6 col-md-3 col-xl-2 mt-2">
+                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dosen.jadwal.index')}}">
+                        <div class="my-5 block-content">
+                            <p><i class="fa fa-3x fa-list" style="color: #013880"></i></p>
+                            <p class="" style="color: #013880">Jadwal</p>
+                        </div>
+                    </a>
+                </div> 
+                
                 <div class="col-6 col-md-3 col-xl-2 mt-2">
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dosen.training.index')}}">
                         <div class="my-5 block-content">
@@ -67,16 +85,6 @@ Dashboard
                         </div>
                     </a>
                 </div>  
-
-                <div class="col-6 col-md-3 col-xl-2 mt-2">
-                    <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dosen.matkul.index')}}">
-                        <div class="my-5 block-content">
-                            <p><i class="fa fa-3x fa-book" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Mata Kuliah</p>
-                        </div>
-                    </a>
-                </div>  
-
             </div>
         </div>
     </div>

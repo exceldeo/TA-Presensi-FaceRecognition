@@ -12,7 +12,7 @@ MyITS Presensi
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dosen.dashboard')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="#" class="breadcrumb-item active">Management Mahasiswa</a>
+        <a href="{{route('dosen.mahasiswa.index')}}" class="breadcrumb-item active">Managemen Mahasiswa</a>
     </nav>
 </div>
 @endsection
@@ -23,12 +23,12 @@ MyITS Presensi
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
-                <div class="font-size-lg font-w600">Management Mahasiswa</div>
+                <div class="font-size-lg font-w600">&emsp;Managemen Mahasiswa</div>
             </div>
             <div class="block-options">
-                <form class="pull-right mr-5 mb-5" action="#" method="GET">
+                <form class="pull-right mr-5 mb-5" action="{{route('dosen.mahasiswa.create')}}" method="GET">
                     <button type="submit" class="btn btn-sm btn-its-primary">
-                        <i class="fa fa-plus"></i> Create Session
+                        <i class="fa fa-plus"></i> Tambah Mahasiswa
                     </button>
                 </form>
             </div>
@@ -39,46 +39,42 @@ MyITS Presensi
                     <table id="session_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="text-center" >Session</th>
+                                <th class="text-center" >NRP</th>
+                                <th class="text-center" >Nama</th>
+                                <th class="text-center" >Departemen</th>
+                                <th class="text-center" style="width:10%">Angkatan</th>
+                                <th class="text-center" style="width:18%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
-                                        <tr>
-                                            <td>
-                                                <div class="content-li" style="padding: 0 20px 0 20px;">
-                                                    <h5 class="font-size-h6 font-w500 mb-5">
-                                                        <a
-                                                            href="#">
-                                                            <br class="d-sm-none mb-1">
-                                                            {{$user->nama_mahasiswa}}
-                                                        </a>
-                                                    </h5>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-calendar mr-1"></i>{{$user->nrp}}
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="si si-clock mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-clock-o mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-user mr-1"></i>test
-                                                    </span>
-                                                    <a
-                                                        href="#">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="fa fa-unlock mr-1"></i> Unlock Session</button>
-                                                    </a>
-                                                    <a
-                                                        href="#" target="_blank">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="fa fa-envelope mr-1"></i> Send Email</button>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                            @foreach($mahasiswas as $mahasiswa)
+                                <tr>
+                                    <td>
+                                        <a href="#">
+                                            <br class="d-sm-none mb-1">
+                                            {{$mahasiswa->nrp}}
+                                        </a>
+                                    </td>
+                                    <td>{{$mahasiswa->nama_mahasiswa}}</td>
+                                    <td>Teknik Informatika</td>
+                                    <td class="text-center" >
+                                        2018
+                                    </td>
+                                    <td>
+                                        <form action="{{route('dosen.mahasiswa.delete', ['nrp' => $mahasiswa->nrp])}}" 
+                                            onclick="return confirm('Apakah anda yakin?')"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger pull-right mr-3"><i
+                                                    class="fa fa-trash mr-1"></i> Hapus</button>
+                                        </form>
+                                        <a href="{{route('dosen.mahasiswa.edit', ['nrp' => $mahasiswa->nrp])}}">
+                                            <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    class="fa fa-pencil mr-1"></i> Edit</button>
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

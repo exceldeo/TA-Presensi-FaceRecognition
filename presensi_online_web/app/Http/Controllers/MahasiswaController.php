@@ -14,73 +14,103 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $users =  Mahasiswa::all();
-        return view('dashboard.mahasiswa.index', compact('users'));
+        $mahasiswas =  Mahasiswa::all();
+        return view('dashboard.mahasiswa.index', compact('mahasiswas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('dashboard.mahasiswa.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nrp' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email',
+        ]);
+        
+        try {
+            $user = Mahasiswa::where('nrp',$request->nrp)->first();
+            if($user){
+                return redirect()->back()->with('fail','NRP atau Email sudah terdaftar');
+            }
+
+            Mahasiswa::insert([
+                'nrp' => $request->nrp,
+                'nama_mahasiswa' => $request->nama,
+                'password' => bcrypt($request->password),
+                'img_path' => 'belum',
+                'is_verifikasi' => 0,
+            ]);
+            $message = ["success" => "Mahasiswa berhasil di tambahkan!"];
+
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            $message = ["fail" => $th->getMessage()];
+        }
+
+        return redirect()->route('dosen.mahasiswa.index')->with($message);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show($nrp)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit($nrp)
     {
-        //
+        $mahasiswa = Mahasiswa::where('nrp',$nrp)->first();
+        return view('dashboard.mahasiswa.edit',compact('mahasiswa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, $nrp)
     {
-        //
+        try {
+            $user = Mahasiswa::where('nrp',$nrp)->first();
+
+            if($user->email != $request->email){
+                $userCheck = Mahasiswa::where('email',$request->email)->first();
+                if($userCheck){
+
+                    return redirect()->back()->with('fail','Email sudah terdaftar');
+                }
+            }
+
+            if($request->password){
+                $password = bcrypt($request->password);
+            } else{
+                $password = $user->password;
+            }
+
+            Mahasiswa::where('nrp',$nrp)->update([
+                'nama_mahasiswa' => $request->nama,
+                'password' => $password,
+            ]);
+            $message = ["success" => "Mahasiswa berhasil di edit!"];
+
+            
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            $message = ["fail" => $th->getMessage()];
+        }
+
+        return redirect()->route('dosen.mahasiswa.index')->with($message);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy($nrp)
     {
-        //
+        try {
+
+            Mahasiswa::where('nrp', $nrp)->delete();
+            $message = ["success" => "Mahasiswa berhasil di hapus!"];
+
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            $message = ["fail" => $th->getMessage()];
+        }
+
+        return redirect()->back()->with($message);
     }
 }

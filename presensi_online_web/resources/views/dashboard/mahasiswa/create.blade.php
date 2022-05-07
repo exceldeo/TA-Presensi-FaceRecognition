@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Tambah User
+Tambah Mahasiswa
 @endsection
 @section('css')
 <link rel="stylesheet"
@@ -10,8 +10,8 @@ Tambah User
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dosen.dashboard')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dosen.user.index')}}" class="breadcrumb-item">Managemen User</a>
-        <a href="{{route('dosen.user.create')}}" class="breadcrumb-item active">Tambah User</a>
+        <a href="{{route('dosen.mahasiswa.index')}}" class="breadcrumb-item">Managemen Mahasiswa</a>
+        <a href="{{route('dosen.mahasiswa.create')}}" class="breadcrumb-item active">Tambah Mahasiswa</a>
     </nav>
 </div>
 @endsection
@@ -21,23 +21,23 @@ Tambah User
     <div class="block">
        <div class="block-header block-header-default">
           <div class="row">
-            <a href="{{route('dosen.user.index')}}" id="arrow-back" style="padding: 0px 0px 0px 12px;">
+            <a href="{{route('dosen.mahasiswa.index')}}" id="arrow-back" style="padding: 0px 0px 0px 12px;">
                 <button type="button" class="btn btn-sm btn-circle btn-secondary mr-5 mb-5">
                     <i class="fa fa-arrow-left"></i>
                 </button>
             </a>
-            <div class="font-size-lg font-w600">&emsp;Tambah User</div>
+            <div class="font-size-lg font-w600">&emsp;Tambah Mahasiswa</div>
           </div>
        </div>
 
-       <form action="{{route('dosen.user.store')}}" method="post" id="question_form">
+       <form action="{{route('dosen.mahasiswa.store')}}" method="post" id="question_form">
             {{ csrf_field() }}
             <div class="block-content">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="">NIP</label>
-                            <input required autocomplete="off" type="text" class="form-control" id="input-name" name="nip">
+                            <label for="">NRP</label>
+                            <input required autocomplete="off" type="text" class="form-control" id="input-name" name="nrp">
                         </div>
                     </div>
                 </div>
@@ -116,11 +116,8 @@ Tambah User
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="" for="example-select">Role</label>
-                            <select required autocomplete="off" class="form-control" id="example-select" name="role">
-                                <option value="admin">admin</option>
-                                <option value="dosen">dosen</option>
-                            </select>
+                            <label for="">Angkatan</label>
+                            <input autocomplete="off" type="number" class="form-control" id="input-name" name="angkatan">
                         </div>
                     </div>
                 </div>
