@@ -60,9 +60,24 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
         Route::get('/', 'JadwalController@index')->name('index');
         Route::get('create', 'JadwalController@create')->name('create');
         Route::post('store', 'JadwalController@store')->name('store');
-        Route::get('{nrp}/show', 'JadwalController@show')->name('show');
-        Route::get('{nrp}/edit', 'JadwalController@edit')->name('edit');
-        Route::patch('{nrp}/edit', 'JadwalController@update');
-        Route::delete('{nrp}/delete', 'JadwalController@destroy')->name('delete');
+        // Route::get('{id}/show', 'JadwalController@show')->name('show');
+        Route::get('{id}/edit', 'JadwalController@edit')->name('edit');
+        Route::patch('{id}/edit', 'JadwalController@update');
+        Route::delete('{id}/delete', 'JadwalController@destroy')->name('delete');
+
+        Route::prefix('{id}/mahasiswa')->name('mahasiswa.')->group(function () { 
+            Route::get('/', 'JadwalController@show')->name('index');
+            Route::get('create', 'JadwalController@createMahasiswa')->name('create');
+            Route::post('store', 'JadwalController@storeMahasiswa')->name('store');
+            Route::delete('{id_jadwal_mahasiswa}/delete', 'JadwalController@destroyMahasiswa')->name('delete');
+            Route::prefix('{nrp}/kehadiran')->name('kehadiran.')->group(function () { 
+                Route::get('/', 'JadwalController@show')->name('index');
+                Route::get('create', 'JadwalController@createMahasiswa')->name('create');
+                Route::post('store', 'JadwalController@storeMahasiswa')->name('store');
+                Route::get('{id_jadwal_mahasiswa}/edit', 'JadwalController@editMahasiswa')->name('edit');
+                Route::patch('{id_jadwal_mahasiswa}/edit', 'JadwalController@updateMahasiswa');
+                Route::delete('{id_jadwal_mahasiswa}/delete', 'JadwalController@destroyMahasiswa')->name('delete');
+            });
+        });
     });
 });

@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-MyITS Presensi
+Jadwal
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::to('/') }}/template/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
@@ -12,7 +12,7 @@ MyITS Presensi
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dosen.dashboard')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="{{route('dosen.user.index')}}" class="breadcrumb-item active">Managemen User</a>
+        <a href="{{route('dosen.jadwal.index')}}" class="breadcrumb-item active">Managemen Jadwal</a>
     </nav>
 </div>
 @endsection
@@ -23,12 +23,12 @@ MyITS Presensi
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
-                <div class="font-size-lg font-w600">&emsp;Managemen User</div>
+                <div class="font-size-lg font-w600">&emsp;Managemen Jadwal</div>
             </div>
             <div class="block-options">
-                <form class="pull-right mr-5 mb-5" action="{{route('dosen.user.create')}}" method="GET">
+                <form class="pull-right mr-5 mb-5" action="{{route('dosen.jadwal.create')}}" method="GET">
                     <button type="submit" class="btn btn-sm btn-its-primary">
-                        <i class="fa fa-plus"></i> Tambah User
+                        <i class="fa fa-plus"></i> Tambah Jadwal
                     </button>
                 </form>
             </div>
@@ -39,43 +39,32 @@ MyITS Presensi
                     <table id="session_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="text-center" >NIP</th>
-                                <th class="text-center" >Nama</th>
-                                <th class="text-center" >Departemen</th>
-                                <th class="text-center" style="width:10%">Role</th>
+                                <th class="text-center" style="width:10%">Tahun</th>
+                                <th class="text-center" >Hari</th>
+                                <th class="text-center" >Jam</th>
+                                <th class="text-center" >Dosen</th>
+                                <th class="text-center" >Matakuliah</th>
+                                <th class="text-center" >Kelas</th>
                                 <th class="text-center" style="width:18%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
+                            @foreach($jadwals as $jadwal)
                                 <tr>
+                                    <td>{{$jadwal->tahun_ajaran}}</td>
+                                    <td>{{$jadwal->hari}}</td>
+                                    <td>{{$jadwal->jam_mulai}}</td>
+                                    <td>{{$jadwal->nama_dosen}}</td>
+                                    <td>{{$jadwal->nama_matakuliah}}</td>
+                                    <td>{{$jadwal->nama_kelas}}</td>
                                     <td>
-                                        <a href="#">
-                                            <br class="d-sm-none mb-1">
-                                            {{$user->nip}}
-                                        </a>
-                                    </td>
-                                    <td>{{$user->nama_dosen}}</td>
-                                    <td>{{$user->departement}}</td>
-                                    <td class="text-center" >
-                                        @if($user->role == 'dosen')
-                                        <span class="badge badge-info">Dosen</span>
-                                        @else
-                                        <span class="badge badge-success">Admin</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <form action="{{route('dosen.user.delete', ['nip' => $user->nip])}}" 
-                                            onclick="return confirm('Apakah anda yakin?')"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger pull-right mr-3"><i
-                                                    class="fa fa-trash mr-1"></i> Hapus</button>
-                                        </form>
-                                        <a href="{{route('dosen.user.edit', ['nip' => $user->nip])}}">
+                                        <a href="{{route('dosen.jadwal.edit', ['id' => $jadwal->id_jadwal])}}">
                                             <button class="btn btn-sm btn-warning pull-right mr-3"><i
                                                     class="fa fa-pencil mr-1"></i> Edit</button>
+                                        </a>
+                                        <a href="{{route('dosen.jadwal.mahasiswa.index', ['id' => $jadwal->id_jadwal])}}">
+                                            <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    class="fa fa-eye mr-1"></i> Lihat</button>
                                         </a>
                                     </td>
                                 </tr>

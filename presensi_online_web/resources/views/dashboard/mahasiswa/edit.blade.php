@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Add User
+Edit Mahasiswa
 @endsection
 @section('css')
 <link rel="stylesheet"
