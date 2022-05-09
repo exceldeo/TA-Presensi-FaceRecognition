@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePresensisTable extends Migration
+class PresensiMahasiswa extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreatePresensisTable extends Migration
      */
     public function up()
     {
-        Schema::create('presensi', function (Blueprint $table) {
+        Schema::create('presensi_mahasiswa', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->time('jam_mulai');
-            $table->time('jam_akhir');
-            $table->string('kode_presensi');
+            $table->time('jam');
+            $table->integer('status');
+            
             $table->timestamps();
 
             //foreign key
-            $table->integer('id_jadwal')->references('id')->on('jadwal');
+            $table->integer('id_jadwal_mahasiswa')->references('id')->on('jadwal_mahasiswa');
+            $table->integer('id_presensi')->references('id')->on('presensi');
         });
     }
 
@@ -33,6 +34,6 @@ class CreatePresensisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('presensi');
+        //
     }
 }

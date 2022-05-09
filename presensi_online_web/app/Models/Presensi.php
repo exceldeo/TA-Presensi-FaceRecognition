@@ -10,7 +10,7 @@ class Presensi extends Model
     protected $primaryKey = 'id';
     
     protected $fillable = [
-        'tanggal', 'jam_mulai', 'jam_akhir', 'id_jadwal'
+        'tanggal', 'jam_mulai', 'jam_akhir', 'id_jadwal' , 'kode_presensi'
     ];
     public function presensiDimilikiJadwalMahasiswa(){
         return $this->belongsTo(JadwalMahasiswa::class);

@@ -10,7 +10,7 @@ class Mahasiswa extends Model
     protected $primaryKey = 'nrp';
     
     protected $fillable = [
-        'nama_mahasiswa', 'password', 'img_path', 'is_verifikasi'
+        'nama_mahasiswa', 'password', 'email', 'departement', 'tahun_masuk', 'img_path', 'is_verifikasi'
     ];
 
     public function mahasiswaDimilikiJadwalMahasiswa(){

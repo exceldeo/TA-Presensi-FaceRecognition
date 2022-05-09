@@ -10,7 +10,7 @@ class Matakuliah extends Model
     protected $primaryKey = 'id';
     
     protected $fillable = [
-        'nama_matakuliah', 'departement'
+        'kode_matakuliah','nama_matakuliah', 'departement'
     ];
     public function matakuliahPunyaJadwal(){
         return $this->hasMany(Jadwal::class);

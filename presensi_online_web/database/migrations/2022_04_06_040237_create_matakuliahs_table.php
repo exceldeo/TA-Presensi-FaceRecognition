@@ -15,6 +15,7 @@ class CreateMatakuliahsTable extends Migration
     {
         Schema::create('matakuliah', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_matakuliah');
             $table->string('nama_matakuliah');
             $table->string('departement');
             $table->timestamps();
