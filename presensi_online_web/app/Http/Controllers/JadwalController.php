@@ -9,6 +9,7 @@ use App\Models\Matakuliah;
 use App\Models\Jadwal;
 use App\Models\Mahasiswa;
 use App\Models\JadwalMahasiswa;
+use App\Models\Presensi;
 
 class JadwalController extends Controller
 {
@@ -81,7 +82,9 @@ class JadwalController extends Controller
                         ->join('mahasiswa', 'mahasiswa.nrp', '=', 'jadwal_mahasiswa.nrp_mahasiswa')
                         ->get();
 
-        return view('dashboard.jadwal.mahasiswa.index', compact('jadwal', 'mahasiswas'));
+        $presensis = Presensi::where('presensi.id_jadwal', $id)->get();
+
+        return view('dashboard.jadwal.show', compact('jadwal', 'mahasiswas', 'presensis'));
     }
 
     public function edit($id)
@@ -161,6 +164,69 @@ class JadwalController extends Controller
     }
 
     public function destroyMahasiswa($id, $id_jadwal_mahasiswa)
+    {
+        try {
+
+            JadwalMahasiswa::where('id', $id_jadwal_mahasiswa)->delete();
+            $message = ["success" => "Jadwal Mahasiswa berhasil di hapus!"];
+
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            $message = ["fail" => $th->getMessage()];
+        }
+
+        return redirect()->back()->with($message);
+    }
+
+    public function createKehadiran($id)
+    {
+        $jadwal = Jadwal::where('jadwal.id', $id)->join('dosen', 'dosen.nip', '=', 'jadwal.id_dosen')
+                        ->join('matakuliah', 'matakuliah.id', '=', 'jadwal.id_matakuliah')
+                        ->join('kelas', 'kelas.id', '=', 'jadwal.id_kelas')
+                        ->select('jadwal.id as id_jadwal', 'jadwal.*', 'dosen.*', 'matakuliah.*', 'kelas.*')->first();
+
+        return view('dashboard.jadwal.kehadiran.create', compact( 'jadwal'));
+    }
+
+    public function storeKehadiran(Request $request, $id)
+    {
+
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'jam_mulai' => 'required',
+            'jam_akhir' => 'required',
+        ]);
+        
+        try {
+
+            Presensi::insert([
+                'tanggal' =>  date('Y-m-d', strtotime($request->tanggal)),
+                'jam_mulai' => $request->jam_mulai,
+                'jam_akhir' => $request->jam_akhir,
+                'id_jadwal' => $id,
+            ]);
+
+            $message = ["success" => "Jadwal Kehadiran berhasil di tambahkan!"];
+
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            $message = ["fail" => $th->getMessage()];
+        }
+
+        return redirect()->route('dosen.jadwal.mahasiswa.index', ['id' => $id])->with($message);
+    }
+
+    public function editKehadiran($id)
+    {
+
+    }
+
+    public function updateKehadiran(Request $request, $id)
+    {
+        
+    }
+
+    public function destroyKehadiran($id, $id_jadwal_mahasiswa)
     {
         try {
 

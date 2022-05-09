@@ -77,6 +77,74 @@ Jadwal Mahasiswa
         <div class="block-content block-content-full bg-body-light font-size-xs font-italic">
         </div>
     </div>
+
+    <div class="block block-mode-hidden">
+        <div class="block-header block-header-default">
+            <div class="row">
+                <div class="font-size-lg font-w600">&emsp;List Kehadiran</div>
+            </div>
+            <div class="block-options">
+                <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"><i class="si si-arrow-down"></i></button>
+            </div>
+        </div>
+        <div class="block-content">
+            <div class="row py-5">
+                <div class="col-12">
+                    <form class="ml-5 mb-5" action="{{route('dosen.jadwal.mahasiswa.kehadiran.create', ['id' => $jadwal->id_jadwal])}}" method="GET">
+                        <button type="submit" class="btn btn-sm btn-its-primary">
+                            <i class="fa fa-plus"></i> Tambah Jadwal Kehadiran
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row py-5">
+                <div class="col-12">
+                    <!-- list Kehadiran -->
+                    <table id="kehadiran_table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width:8%">Pertemuan ke-</th>
+                                <th class="text-center" >Jam Mulai</th>
+                                <th class="text-center" >Jam Selesai</th>
+                                <th class="text-center" >Tanggal</th>
+                                <th class="text-center" >Kode Presensi</th>
+                                <th class="text-center" style="width:50px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($presensis as $presensi)
+                                <tr>
+                                    <td>{{ $loop->iteration  }}</td>
+                                    <td>{{ $presensi->jam_mulai }}</td>
+                                    <td>{{ $presensi->jam_akhir }}</td>
+                                    <td>{{ date('m/d/Y', strtotime($presensi->tanggal)) }}</td>
+                                    <td>546841</td>
+                                    <td>
+                                        <form action="#" 
+                                        onclick="return confirm('Apakah anda yakin?')"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger pull-right mr-3"><i
+                                        class="fa fa-trash mr-1"></i> Hapus</button>
+                                        </form>
+                                        <a href="#">
+                                            <button class="btn btn-sm btn-warning pull-right mr-3"><i
+                                                    class="fa fa-pencil mr-1"></i> Edit</button>
+                                        </a>
+                                        <a href="#">
+                                            <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    class="fa fa-eye mr-1"></i> Kode Presensi</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div class="block">
         <div class="block-header block-header-default">
@@ -100,7 +168,7 @@ Jadwal Mahasiswa
                                 <th class="text-center" >NRP</th>
                                 <th class="text-center" >Nama</th>
                                 <th class="text-center" >departement</th>
-                                <th class="text-center" style="width:10%">Aksi</th>
+                                <th class="text-center" style="width:21%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,18 +178,18 @@ Jadwal Mahasiswa
                                     <td>{{$mahasiswa->nama_mahasiswa}}</td>
                                     <td>Nama Departement</td>
                                     <td>
-                                        <a href="#">
-                                            <button class="btn btn-sm btn-warning pull-right mr-3"><i
-                                                    class="fa fa-pencil mr-1"></i> Edit</button>
-                                        </a>
                                         <form action="{{route('dosen.jadwal.mahasiswa.delete', ['id' => $jadwal->id_jadwal, 'id_jadwal_mahasiswa' => $mahasiswa->id])}}" 
-                                            onclick="return confirm('Apakah anda yakin?')"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger pull-right mr-3"><i
-                                                    class="fa fa-trash mr-1"></i> Hapus</button>
+                                        onclick="return confirm('Apakah anda yakin?')"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger pull-right mr-3"><i
+                                        class="fa fa-trash mr-1"></i> Hapus</button>
                                         </form>
+                                        <a href="#">
+                                            <button class="btn btn-sm btn-info pull-right mr-3"><i
+                                                    class="fa fa-eye mr-1"></i> Kehadiran</button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -152,6 +220,8 @@ Jadwal Mahasiswa
 <script>
     $(document).ready(function() {
         var table = $('#session_table').DataTable( {
+        } );
+        var table2 = $('#kehadiran_table').DataTable( {
         } );
     } );
 </script>
