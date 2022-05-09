@@ -69,7 +69,7 @@ Tambah Mahasiswa
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="" for="example-select">Departemen</label>
-                            <select required autocomplete="off" class="form-control" id="example-select" name="departemen">
+                            <select required autocomplete="off" class="form-control" id="example-select" name="departement">
                                 <option value="Fisika">Fisika</option>
                                 <option value="Matematika">Matematika</option>
                                 <option value="Statistika">Statistika</option>

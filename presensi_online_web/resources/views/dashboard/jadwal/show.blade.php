@@ -40,7 +40,7 @@ Jadwal Mahasiswa
                             <div class="content-li" style="padding: 0 20px 0 20px;">
                                 <h5 class="font-size-h6 font-w500 mb-5">
                                     <a href="#">
-                                        <span class="badge badge-its-primary mr-2">kode matakuliah </span>
+                                        <span class="badge badge-its-primary mr-2">{!! $jadwal->kode_matakuliah !!} </span>
                                         <br class="d-sm-none mb-1">
                                         {!! $jadwal->nama_matakuliah !!}
                                     </a>
@@ -118,7 +118,7 @@ Jadwal Mahasiswa
                                     <td>{{ $presensi->jam_mulai }}</td>
                                     <td>{{ $presensi->jam_akhir }}</td>
                                     <td>{{ date('m/d/Y', strtotime($presensi->tanggal)) }}</td>
-                                    <td>546841</td>
+                                    <td>{{ $presensi->kode_presensi }}</td>
                                     <td>
                                         <form action="#" 
                                         onclick="return confirm('Apakah anda yakin?')"
@@ -176,7 +176,7 @@ Jadwal Mahasiswa
                                 <tr>
                                     <td>{{$mahasiswa->nrp_mahasiswa}}</td>
                                     <td>{{$mahasiswa->nama_mahasiswa}}</td>
-                                    <td>Nama Departement</td>
+                                    <td>{{$mahasiswa->departement}}</td>
                                     <td>
                                         <form action="{{route('dosen.jadwal.mahasiswa.delete', ['id' => $jadwal->id_jadwal, 'id_jadwal_mahasiswa' => $mahasiswa->id])}}" 
                                         onclick="return confirm('Apakah anda yakin?')"

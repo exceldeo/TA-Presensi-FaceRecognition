@@ -204,6 +204,7 @@ class JadwalController extends Controller
                 'jam_mulai' => $request->jam_mulai,
                 'jam_akhir' => $request->jam_akhir,
                 'id_jadwal' => $id,
+                'kode_presensi' => rand(100000,999999),
             ]);
 
             $message = ["success" => "Jadwal Kehadiran berhasil di tambahkan!"];

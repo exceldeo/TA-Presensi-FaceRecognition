@@ -19,7 +19,7 @@ class DosenSeeder extends Seeder
             'password' => Hash::make('password'),
             'nip' => 123,
             'role' => 'admin',
-            'departement' => 'informatika',
+            'departement' => 'Teknik Informatika',
         ]);
 
         DB::table('dosen')->insert([
@@ -28,7 +28,7 @@ class DosenSeeder extends Seeder
             'password' => Hash::make('password'),
             'nip' => 12345,
             'role' => 'dosen',
-            'departement' => 'informatika',
+            'departement' => 'Teknik Informatika',
         ]);
     }
 }

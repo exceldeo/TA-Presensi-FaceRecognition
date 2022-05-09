@@ -56,9 +56,9 @@ MyITS Presensi
                                         </a>
                                     </td>
                                     <td>{{$mahasiswa->nama_mahasiswa}}</td>
-                                    <td>Teknik Informatika</td>
+                                    <td>{{$mahasiswa->departement}}</td>
                                     <td class="text-center" >
-                                        2018
+                                    {{$mahasiswa->tahun_masuk}}
                                     </td>
                                     <td>
                                         <form action="{{route('dosen.mahasiswa.delete', ['nrp' => $mahasiswa->nrp])}}" 

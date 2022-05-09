@@ -28,7 +28,9 @@ class MahasiswaController extends Controller
         $this->validate($request, [
             'nrp' => 'required',
             'nama' => 'required',
+            'departement' => 'required',
             'email' => 'required|email',
+            'angkatan' => 'required',
         ]);
         
         try {
@@ -40,7 +42,10 @@ class MahasiswaController extends Controller
             Mahasiswa::insert([
                 'nrp' => $request->nrp,
                 'nama_mahasiswa' => $request->nama,
+                'email' => $request->email,
                 'password' => bcrypt($request->password),
+                'departement' => $request->departement,
+                'tahun_masuk' => $request->angkatan,
                 'img_path' => 'belum',
                 'is_verifikasi' => 0,
             ]);
@@ -87,6 +92,9 @@ class MahasiswaController extends Controller
             Mahasiswa::where('nrp',$nrp)->update([
                 'nama_mahasiswa' => $request->nama,
                 'password' => $password,
+                'email' => $request->email,
+                'departement' => $request->departement,
+                'tahun_masuk' => $request->angkatan,
             ]);
             $message = ["success" => "Mahasiswa berhasil di edit!"];
 
