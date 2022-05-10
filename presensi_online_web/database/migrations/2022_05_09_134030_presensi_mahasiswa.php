@@ -15,8 +15,8 @@ class PresensiMahasiswa extends Migration
     {
         Schema::create('presensi_mahasiswa', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->time('jam');
+            $table->date('tanggal')->nullable();
+            $table->time('jam')->nullable();
             $table->integer('status');
             
             $table->timestamps();

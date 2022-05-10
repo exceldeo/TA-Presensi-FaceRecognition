@@ -103,32 +103,24 @@ Jadwal Mahasiswa
                     <table id="kehadiran_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="text-center" style="width:8%">Pertemuan ke-</th>
+                                <th class="text-center" style="width:5%">Pertemuan ke-</th>
                                 <th class="text-center" >Jam Mulai</th>
                                 <th class="text-center" >Jam Selesai</th>
                                 <th class="text-center" >Tanggal</th>
                                 <th class="text-center" >Kode Presensi</th>
-                                <th class="text-center" style="width:50px">Aksi</th>
+                                <th class="text-center" style="width:100px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($presensis as $presensi)
                                 <tr>
-                                    <td>{{ $loop->iteration  }}</td>
+                                    <td class="text-center">{{ $loop->iteration  }}</td>
                                     <td>{{ $presensi->jam_mulai }}</td>
                                     <td>{{ $presensi->jam_akhir }}</td>
                                     <td>{{ date('m/d/Y', strtotime($presensi->tanggal)) }}</td>
                                     <td>{{ $presensi->kode_presensi }}</td>
                                     <td>
-                                        <form action="#" 
-                                        onclick="return confirm('Apakah anda yakin?')"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger pull-right mr-3"><i
-                                        class="fa fa-trash mr-1"></i> Hapus</button>
-                                        </form>
-                                        <a href="#">
+                                        <a href="{{route('dosen.jadwal.mahasiswa.kehadiran.edit', ['id' => $jadwal->id_jadwal, 'id_presensi' => $presensi->id])}}">
                                             <button class="btn btn-sm btn-warning pull-right mr-3"><i
                                                     class="fa fa-pencil mr-1"></i> Edit</button>
                                         </a>
@@ -186,7 +178,7 @@ Jadwal Mahasiswa
                                         <button class="btn btn-sm btn-danger pull-right mr-3"><i
                                         class="fa fa-trash mr-1"></i> Hapus</button>
                                         </form>
-                                        <a href="#">
+                                        <a href="{{route('dosen.jadwal.mahasiswa.show', ['id' => $jadwal->id_jadwal, 'nrp' => $mahasiswa->nrp_mahasiswa])}}">
                                             <button class="btn btn-sm btn-info pull-right mr-3"><i
                                                     class="fa fa-eye mr-1"></i> Kehadiran</button>
                                         </a>

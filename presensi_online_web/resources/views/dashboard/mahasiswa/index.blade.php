@@ -23,6 +23,11 @@ MyITS Presensi
     <div class="block">
         <div class="block-header block-header-default">
             <div class="row">
+                <a href="{{route('dosen.dashboard')}}" id="arrow-back" style="padding: 0px 0px 0px 12px;">
+                    <button type="button" class="btn btn-sm btn-circle btn-secondary mr-5 mb-5">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                </a>
                 <div class="font-size-lg font-w600">&emsp;Managemen Mahasiswa</div>
             </div>
             <div class="block-options">

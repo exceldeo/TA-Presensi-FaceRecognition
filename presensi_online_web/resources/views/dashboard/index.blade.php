@@ -37,7 +37,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dosen.user.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa fa-user-circle" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Management User</p>
+                            <p class="" style="color: #013880">User</p>
                         </div>
                     </a>
                 </div>  
@@ -45,7 +45,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dosen.mahasiswa.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-graduation-cap" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Management Mahasiswa</p>
+                            <p class="" style="color: #013880">Mahasiswa</p>
                         </div>
                     </a>
                 </div>  
@@ -54,7 +54,7 @@ Dashboard
                     <a class="h-100 block block-rounded block-bordered block-link-shadow text-center" href="{{route('dosen.kelas.index')}}">
                         <div class="my-5 block-content">
                             <p><i class="fa fa-3x fa-building" style="color: #013880"></i></p>
-                            <p class="" style="color: #013880">Management Kelas</p>
+                            <p class="" style="color: #013880">Kelas</p>
                         </div>
                     </a>
                 </div> 
