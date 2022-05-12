@@ -31,7 +31,7 @@ MyITS Presensi
                 <div class="font-size-lg font-w600">&emsp;Management Kelas</div>
             </div>
             <div class="block-options">
-                <form class="pull-right mr-5 mb-5" action="#" method="GET">
+                <form class="pull-right mr-5 mb-5" action="{{route('dosen.kelas.create')}}" method="GET">
                     <button type="submit" class="btn btn-sm btn-its-primary">
                         <i class="fa fa-plus"></i> Tambah Kelas
                     </button>
@@ -55,11 +55,15 @@ MyITS Presensi
                                     <td>{{$class->nama_kelas}}</td>
                                     <td>{{$class->lokasi_kelas}}</td>
                                     <td>
-                                        <a href="#" >
+                                    <form action="{{route('dosen.kelas.delete', ['id' => $class->id])}}" 
+                                            onclick="return confirm('Apakah anda yakin?')"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                             <button class="btn btn-sm btn-danger pull-right mr-3"><i
                                                     class="fa fa-trash mr-1"></i> Hapus</button>
-                                        </a>
-                                        <a href="#">
+                                        </form>
+                                        <a href="{{route('dosen.kelas.edit', ['id' => $class->id])}}">
                                             <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
                                                     class="fa fa-pencil mr-1"></i> Edit</button>
                                         </a>
