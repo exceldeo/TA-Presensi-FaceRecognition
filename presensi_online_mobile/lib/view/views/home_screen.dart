@@ -1,5 +1,5 @@
-import 'package:presensi_online_mobile/data/repository/doctor_data.dart';
-import 'package:presensi_online_mobile/data/repository/specialist_data.dart';
+import 'package:presensi_online_mobile/data/model/user_model.dart';
+import 'package:presensi_online_mobile/provider/user_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,6 +19,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UserModel _user;
+  UserProvider _userProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _userProvider = Provider.of<UserProvider>(context, listen: false);
+    // });
+    Future.delayed(Duration.zero).then((_) {
+      _user = Provider.of<UserProvider>(context, listen: false).user;
+    });
+  }
+
   Widget _homeToolbar(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
@@ -42,19 +57,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Text(
                   ///nama
-                  Strings.NAMA1,
+                  _user.namaMahasiswa,
                   style: khulaRegular.copyWith(
                       color: ColorResources.COLOR_BLACK,
                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                       fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  "Harap traning wajah terlebih dahulu",
-                  style: khulaRegular.copyWith(
-                      color: ColorResources.COLOR_PRIMARY,
-                      fontSize: Dimensions.FONT_SIZE_SMALL,
-                      fontWeight: FontWeight.w100),
-                ),
+                // Text(
+                //   "Harap traning wajah terlebih dahulu",
+                //   style: khulaRegular.copyWith(
+                //       color: ColorResources.COLOR_PRIMARY,
+                //       fontSize: Dimensions.FONT_SIZE_SMALL,
+                //       fontWeight: FontWeight.w100),
+                // ),
               ],
             ),
           ),

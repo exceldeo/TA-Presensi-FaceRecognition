@@ -1,5 +1,5 @@
-class AuthRepo{
-  List<String> getCountryList=[
+class AuthRepo {
+  List<String> getCountryList = [
     '+004',
     '+008',
     '+880',

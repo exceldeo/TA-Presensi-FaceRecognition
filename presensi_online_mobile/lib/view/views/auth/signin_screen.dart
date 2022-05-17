@@ -1,4 +1,4 @@
-import 'package:presensi_online_mobile/view/views/auth/doctor_signup_screen.dart';
+import 'package:presensi_online_mobile/provider/user_provider.dart';
 import 'package:presensi_online_mobile/view/views/auth/widget/social_media_widget.dart';
 import 'package:presensi_online_mobile/view/views/startup_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/button/custom_button.dart';
@@ -11,14 +11,27 @@ import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
+import 'package:provider/provider.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // final provider = Provider.of<UserProvider>(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     TextEditingController _nrpController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     FocusNode _nrpNode = FocusNode();
     FocusNode _passNode = FocusNode();
+    String alert = "";
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -36,7 +49,20 @@ class SignInScreen extends StatelessWidget {
                   width: 230,
                 ),
                 SizedBox(
-                  height: 50.0,
+                  height: 20.0,
+                ),
+                Container(
+                  child: Text(
+                    alert,
+                    style: khulaRegular.copyWith(
+                      fontSize: Dimensions.FONT_SIZE_SMALL,
+                      color: ColorResources.COLOR_RED,
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 20.0,
                 ),
                 Container(
                   margin: EdgeInsets.only(
@@ -99,8 +125,24 @@ class SignInScreen extends StatelessWidget {
                   child: CustomButton(
                     btnTxt: Strings.SIGN_IN,
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => StartupScreen()));
+                      final provider =
+                          Provider.of<UserProvider>(context, listen: false);
+                      provider
+                          .authLogin(
+                              nrp: _nrpController.value.text.trim(),
+                              password: _passwordController.value.text.trim())
+                          .then((value) {
+                        if (provider.user != null) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      StartupScreen()));
+                        } else {
+                          setState(() {
+                            alert = "Password atau NRP salah";
+                          });
+                        }
+                      });
                     },
                   ),
                 ),

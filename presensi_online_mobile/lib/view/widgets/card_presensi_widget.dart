@@ -1,4 +1,3 @@
-import 'package:presensi_online_mobile/data/model/specialist.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/style.dart';

@@ -1,5 +1,3 @@
-import 'package:presensi_online_mobile/data/repository/doctor_data.dart';
-import 'package:presensi_online_mobile/data/repository/specialist_data.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';

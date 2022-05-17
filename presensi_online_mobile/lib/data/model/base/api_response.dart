@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-class ApiResponse {
-  final Response response;
+class ApiResponse<T> {
+  final T response;
   final dynamic error;
 
   ApiResponse(this.response, this.error);
@@ -10,7 +10,7 @@ class ApiResponse {
       : response = null,
         error = errorValue;
 
-  ApiResponse.withSuccess(Response responseValue)
+  ApiResponse.withSuccess(T responseValue)
       : response = responseValue,
         error = null;
 }
