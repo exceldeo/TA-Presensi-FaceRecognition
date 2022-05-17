@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MyITS Academy',
+      title: 'MyITS Presensi',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: ColorResources.COLOR_PRIMARY,
