@@ -1,6 +1,8 @@
-import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
-import 'package:presensi_online_mobile/provider/user_provider.dart';
-import 'package:presensi_online_mobile/services/auth_services.dart';
+// import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
+// import 'package:presensi_online_mobile/provider/user_provider.dart';
+// import 'package:presensi_online_mobile/services/auth_services.dart';
+import 'package:presensi_online_mobile/models/user.dart';
+import 'package:presensi_online_mobile/providers/user_provider.dart';
 import 'package:presensi_online_mobile/view/views/auth/widget/social_media_widget.dart';
 import 'package:presensi_online_mobile/view/views/startup_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/button/custom_button.dart';
@@ -28,12 +30,35 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider provider = Provider.of<UserProvider>(context);
-    TextEditingController _nrpController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    TextEditingController _nrpController = TextEditingController(text: '');
+    TextEditingController _passwordController = TextEditingController(text: '');
     FocusNode _nrpNode = FocusNode();
     FocusNode _passNode = FocusNode();
     String alert = "";
+
+    var login = () {
+      // Navigator.pushNamed(context, RouteConstants.landingPage);
+
+      final Future<Map<String, dynamic>> successfulMessage = userProvider.login(
+          nrp: _nrpController.value.text.trim(),
+          password: _passwordController.value.text.trim());
+
+      successfulMessage.then((response) {
+        if (response['status']) {
+          User user = response['user'];
+          Provider.of<UserProvider>(context, listen: false).setUser(user);
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (BuildContext context) => StartupScreen()));
+        } else {
+          final snackBar = SnackBar(
+            content: Text('Email atau password salah'),
+            backgroundColor: ColorResources.COLOR_BLACK,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      });
+    };
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -126,86 +151,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   child: CustomButton(
                     btnTxt: Strings.SIGN_IN,
-                    onTap: () async {
-                      bool returnValue = await provider.authLogin(
-                          nrp: _nrpController.value.text.trim(),
-                          password: _passwordController.value.text.trim());
-                      if (returnValue == true) {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                StartupScreen()));
-                      } else {
-                        setState(() {
-                          alert = "Password atau NRP salah";
-                        });
-                      }
-                    },
+                    onTap: login,
                   ),
                 ),
-
-                // FlatButton(
-                //   onPressed: () {
-                //     //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => AuthScreen()));
-                //   },
-                //   child: Text(
-                //     Strings.FORGET_PASSWORD,
-                //     style: khulaRegular.copyWith(
-                //       fontSize: Dimensions.FONT_SIZE_SMALL,
-                //       color: ColorResources.COLOR_GREY,
-                //     ),
-                //   ),
-                // ),
-
-                // Container(
-                //   margin: EdgeInsets.all(Dimensions.MARGIN_SIZE_DEFAULT),
-                //   child: Row(
-                //     children: [
-                //       Text(
-                //         Strings.OR_SIGN_IN,
-                //         style: khulaRegular.copyWith(
-                //           color: ColorResources.COLOR_GREY,
-                //           fontSize: Dimensions.FONT_SIZE_SMALL,
-                //         ),
-                //       ),
-                //       Expanded(
-                //         child: Container(
-                //           height: 1,
-                //           width: 10,
-                //           color: ColorResources.COLOR_GAINSBORO,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-
-                // for or sign in
-
-                // SizedBox(
-                //   height: 50,
-                // ),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.of(context).push(MaterialPageRoute(
-                //         builder: (context) => DoctorSignUpScreen()));
-                //   },
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         Strings.HAVENT_ANY,
-                //         style: khulaSemiBold.copyWith(
-                //             color: ColorResources.COLOR_GREY,
-                //             fontSize: Dimensions.FONT_SIZE_SMALL),
-                //       ),
-                //       Text(
-                //         Strings.CREATE_AN_ACCOUNT,
-                //         style: khulaSemiBold.copyWith(
-                //             color: ColorResources.COLOR_PRIMARY,
-                //             fontSize: Dimensions.FONT_SIZE_SMALL),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Jadwal;
 use App\Models\Dosen;
 use App\Models\JadwalMahasiswa;
+use App\Models\Presensi;
+use App\Models\PresensiMahasiswa;
 
 class ApiController extends Controller
 {
@@ -35,15 +37,34 @@ class ApiController extends Controller
         }
     }
 
+    public function getMahasiswaByNrp($nrp)
+    {
+        $mahasiswa = Mahasiswa::where('nrp', $nrp)->first();
+        if (is_null($mahasiswa) ) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'NRP tidak ditemukan'
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 'success',
+                'data' => $mahasiswa
+            ], 401);
+        } 
+    }
+
     public function readKelasByNrp($nrp)
     {
         $jadwals = array();
         $jadwalMahasiswas = JadwalMahasiswa::where('nrp_mahasiswa', $nrp)->get();
         foreach($jadwalMahasiswas as $jadwalMahasiswa){
-            $jadwal = Jadwal::where('jadwal.id', $jadwalMahasiswa->id_jadwal)->join('dosen', 'dosen.nip', '=', 'jadwal.id_dosen')
+            $jadwal = Jadwal::where('jadwal.id', $jadwalMahasiswa->id_jadwal)
+                    ->join('dosen', 'dosen.nip', '=', 'jadwal.id_dosen')
                     ->join('matakuliah', 'matakuliah.id', '=', 'jadwal.id_matakuliah')
                     ->join('kelas', 'kelas.id', '=', 'jadwal.id_kelas')
-                    ->select('jadwal.id as id_jadwal', 'jadwal.*', 'dosen.*', 'matakuliah.*', 'kelas.*')->first();
+                    ->join('jadwal_mahasiswa', 'jadwal_mahasiswa.id_jadwal', '=', 'jadwal.id')
+                    ->select('jadwal.id as id_jadwal', 'jadwal.*', 'dosen.*', 'matakuliah.*', 'kelas.*','jadwal_mahasiswa.id as id_jadwal_mahasiswa')->first();
             array_push($jadwals, $jadwal);
         }
 
@@ -58,6 +79,33 @@ class ApiController extends Controller
                 'message' => 'Tidak ada kelas'
             ], 401);
         }
+    }
+
+    public function getPresensiByJadwalMahasiswa($jadwalMahasiswa)
+    {
+        $presensis = array();
+        $presensiMahasiswas = PresensiMahasiswa::where('id_jadwal_mahasiswa', $jadwalMahasiswa)->get();
+
+        foreach($presensiMahasiswas as $presensiMahasiswa){
+            $presensi = PresensiMahasiswa::where('presensi_mahasiswa.id', $presensiMahasiswa->id)
+                        ->join('presensi','presensi.id','=', 'presensi_mahasiswa.id_presensi')
+                        ->select('presensi_mahasiswa.tanggal as tanggal_absen', 'presensi.tanggal as tanggal_presensi', 'presensi.*', 'presensi_mahasiswa.*')->first();
+            array_push($presensis, $presensi);
+        }
+
+        // $mahasiswa = Mahasiswa::where('nrp', $nrp)->first();
+        if (is_null($presensis) ) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Presensi tidak ditemukan'
+            ], 401);
+        }
+        else{
+            return response()->json([
+                'status' => 'success',
+                'data' => $presensis
+            ], 200);
+        } 
     }
 
     public function readDosen()

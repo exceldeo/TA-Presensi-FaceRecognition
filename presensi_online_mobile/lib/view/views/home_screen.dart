@@ -1,11 +1,14 @@
-import 'package:presensi_online_mobile/data/model/jadwal_kelas_model.dart';
-import 'package:presensi_online_mobile/data/model/user_model.dart';
-import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
-import 'package:presensi_online_mobile/provider/user_provider.dart';
+// import 'package:presensi_online_mobile/data/model/jadwal_kelas_model.dart';
+// import 'package:presensi_online_mobile/data/model/user_model.dart';
+// import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
+// import 'package:presensi_online_mobile/provider/user_provider.dart';
+import 'package:presensi_online_mobile/models/userPreference.dart';
+import 'package:presensi_online_mobile/providers/jadwal_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
+import 'package:presensi_online_mobile/utility/user_preference.dart';
 import 'package:presensi_online_mobile/view/views/checking_screen.dart';
 import 'package:presensi_online_mobile/view/views/qr_scanner_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/card_class_widget.dart';
@@ -21,39 +24,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  UserModel _user;
-  UserProvider _userProvider;
-  JadwalKelasProvider _jadwalKelasProvider;
-  List<JadwalKelasModel> _listJadwalKelas;
-  var indicator = new GlobalKey<RefreshIndicatorState>();
-  bool _loading = true;
+  // UserModel _user;
+  // UserProvider _userProvider;
+  // JadwalKelasProvider _jadwalKelasProvider;
+  // List<JadwalKelasModel> _listJadwalKelas;
+  // var indicator = new GlobalKey<RefreshIndicatorState>();
+  // bool _loading = true;
 
-  Future fetchDataJadwalKelas({nrp: String}) async {
-    _jadwalKelasProvider =
-        Provider.of<JadwalKelasProvider>(context, listen: false);
-    _listJadwalKelas =
-        await _jadwalKelasProvider.fetchDataListJadwalKelas(nrp: nrp);
-  }
+  // Future fetchDataJadwalKelas({nrp: String}) async {
+  //   _jadwalKelasProvider =
+  //       Provider.of<JadwalKelasProvider>(context, listen: false);
+  //   _listJadwalKelas =
+  //       await _jadwalKelasProvider.fetchDataListJadwalKelas(nrp: nrp);
+  // }
+
+  UserPreferenceModel _userPreference;
+
+  // Future fetchDataUserPreference() async {
+  //   _userPreference = Provider.of<UserPreferenceModel>(context, listen: false);
+  //   _userPreference = await UserPreferences().getUser();
+  // }
 
   @override
-  Future<void> initState() {
+  void initState() {
     super.initState();
+    // fetchDataUserPreference();
+    // _userProvider = Provider.of<UserProvider>(context, listen: false);
+    // _user = _userProvider.getUser();
+    // fetchDataJadwalKelas(nrp: _user.nrp);
+    // _jadwalKelasProvider =
+    //     Provider.of<JadwalKelasProvider>(context, listen: false);
+    // _listJadwalKelas = _jadwalKelasProvider.getListJadwalKelas();
 
-    _userProvider = Provider.of<UserProvider>(context, listen: false);
-    _user = _userProvider.getUser();
-    fetchDataJadwalKelas(nrp: _user.nrp);
-    _jadwalKelasProvider =
-        Provider.of<JadwalKelasProvider>(context, listen: false);
-    _listJadwalKelas = _jadwalKelasProvider.getListJadwalKelas();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_userProvider.loadingStateGetUser &&
-          _jadwalKelasProvider.loadingStateGetJadwalKelas) {
-        indicator.currentState?.show();
-      } else {
-        indicator.currentState?.deactivate();
-      }
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (_userProvider.loadingStateGetUser &&
+    //       _jadwalKelasProvider.loadingStateGetJadwalKelas) {
+    //     indicator.currentState?.show();
+    //   } else {
+    //     indicator.currentState?.deactivate();
+    //   }
+    // });
   }
 
   Widget _homeToolbar(BuildContext context) {
@@ -80,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Text(
                   ///nama
-                  _user?.namaMahasiswa,
+                  "Excel",
                   style: khulaRegular.copyWith(
                       color: ColorResources.COLOR_BLACK,
                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
@@ -115,9 +125,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorResources.COLOR_HOME_BACKGROUND,
-      body: SafeArea(
+    JadwalProvider _jadwalKelasProvider = Provider.of<JadwalProvider>(context);
+
+    _list() => Container(
+          color: ColorResources.COLOR_WHITE,
+          child: ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            itemCount: _jadwalKelasProvider.jadwalList.length,
+            itemBuilder: (context, index) {
+              return ClassCardWidget(_jadwalKelasProvider.jadwalList[index]);
+            },
+          ),
+        );
+
+    return Provider(
+      lazy: false,
+      create: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _jadwalKelasProvider.fetchJadwal();
+        });
+      },
+      dispose: (context, data) {},
+      child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding:
@@ -211,13 +241,4 @@ class _HomeScreenState extends State<HomeScreen> {
   //       ),
   //     );
 
-  _list() => Container(
-        color: ColorResources.COLOR_WHITE,
-        child: ListView(
-          primary: false,
-          shrinkWrap: true,
-          children:
-              _listJadwalKelas.map((e) => ClassCardWidget("data2")).toList(),
-        ),
-      );
 }

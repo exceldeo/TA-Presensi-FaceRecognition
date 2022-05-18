@@ -1,4 +1,4 @@
-class UserModel {
+class User {
   int nrp;
   String namaMahasiswa;
   String password;
@@ -8,7 +8,7 @@ class UserModel {
   String imgPath;
   int isVerifikasi;
 
-  UserModel(
+  User(
       {this.nrp,
       this.namaMahasiswa,
       this.password,
@@ -18,7 +18,7 @@ class UserModel {
       this.imgPath,
       this.isVerifikasi});
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     nrp = json['nrp'];
     namaMahasiswa = json['nama_mahasiswa'];
     password = json['password'];

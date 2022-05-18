@@ -1,4 +1,4 @@
-class JadwalKelasModel {
+class Jadwal {
   int idJadwal;
   int id;
   String hari;
@@ -6,8 +6,6 @@ class JadwalKelasModel {
   String jamAkhir;
   int tahunAjaran;
   int semester;
-  String createdAt;
-  String updatedAt;
   int idKelas;
   int idMatakuliah;
   String idDosen;
@@ -21,8 +19,9 @@ class JadwalKelasModel {
   String namaMatakuliah;
   String namaKelas;
   String lokasiKelas;
+  int idJadwalMahasiswa;
 
-  JadwalKelasModel(
+  Jadwal(
       {this.idJadwal,
       this.id,
       this.hari,
@@ -30,8 +29,6 @@ class JadwalKelasModel {
       this.jamAkhir,
       this.tahunAjaran,
       this.semester,
-      this.createdAt,
-      this.updatedAt,
       this.idKelas,
       this.idMatakuliah,
       this.idDosen,
@@ -44,9 +41,10 @@ class JadwalKelasModel {
       this.kodeMatakuliah,
       this.namaMatakuliah,
       this.namaKelas,
-      this.lokasiKelas});
+      this.lokasiKelas,
+      this.idJadwalMahasiswa});
 
-  JadwalKelasModel.fromJson(Map<String, dynamic> json) {
+  Jadwal.fromJson(Map<String, dynamic> json) {
     idJadwal = json['id_jadwal'];
     id = json['id'];
     hari = json['hari'];
@@ -54,8 +52,6 @@ class JadwalKelasModel {
     jamAkhir = json['jam_akhir'];
     tahunAjaran = json['tahun_ajaran'];
     semester = json['semester'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
     idKelas = json['id_kelas'];
     idMatakuliah = json['id_matakuliah'];
     idDosen = json['id_dosen'];
@@ -69,6 +65,7 @@ class JadwalKelasModel {
     namaMatakuliah = json['nama_matakuliah'];
     namaKelas = json['nama_kelas'];
     lokasiKelas = json['lokasi_kelas'];
+    idJadwalMahasiswa = json['id_jadwal_mahasiswa'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,8 +77,6 @@ class JadwalKelasModel {
     data['jam_akhir'] = this.jamAkhir;
     data['tahun_ajaran'] = this.tahunAjaran;
     data['semester'] = this.semester;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
     data['id_kelas'] = this.idKelas;
     data['id_matakuliah'] = this.idMatakuliah;
     data['id_dosen'] = this.idDosen;
@@ -95,6 +90,7 @@ class JadwalKelasModel {
     data['nama_matakuliah'] = this.namaMatakuliah;
     data['nama_kelas'] = this.namaKelas;
     data['lokasi_kelas'] = this.lokasiKelas;
+    data['id_jadwal_mahasiswa'] = this.idJadwalMahasiswa;
     return data;
   }
 }

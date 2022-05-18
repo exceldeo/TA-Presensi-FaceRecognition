@@ -1,3 +1,4 @@
+import 'package:presensi_online_mobile/models/jadwal.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
@@ -7,9 +8,9 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:presensi_online_mobile/view/views/detail_presensi_screen.dart';
 
 class ClassCardWidget extends StatelessWidget {
-  final String matkul;
+  final Jadwal jadwalKelas;
 
-  ClassCardWidget(this.matkul);
+  ClassCardWidget(this.jadwalKelas);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,9 @@ class ClassCardWidget extends StatelessWidget {
       onTap: () {
         pushNewScreen(
           context,
-          screen: DetailPresensiScreen(),
+          screen: DetailPresensiScreen(
+            jadwalKelas: jadwalKelas,
+          ),
           withNavBar: false,
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
@@ -44,17 +47,26 @@ class ClassCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //perlu di ganti
-                  Text(matkul,
-                      style: TextStyle(
-                          color: ColorResources.COLOR_BLACK,
-                          fontSize: Dimensions.FONT_SIZE_LARGE,
-                          fontWeight: FontWeight.bold)),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: ColorResources.COLOR_PRIMARY,
+                        borderRadius: BorderRadius.circular(4)),
+                    padding: EdgeInsets.all(2),
+                    child: Text(
+                      jadwalKelas.kodeMatakuliah,
+                      style: khulaRegular.copyWith(
+                        fontSize: Dimensions.FONT_SIZE_SMALL,
+                        fontWeight: FontWeight.normal,
+                        color: ColorResources.COLOR_WHITE,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 15,
                   ),
-                  Text(matkul,
+                  Text(jadwalKelas.namaMatakuliah,
                       style: TextStyle(
-                          color: ColorResources.COLOR_PRIMARY,
+                          color: ColorResources.COLOR_BLACK,
                           fontSize: Dimensions.FONT_SIZE_LARGE,
                           fontWeight: FontWeight.bold)),
                   SizedBox(
@@ -74,7 +86,7 @@ class ClassCardWidget extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            Text(matkul,
+                            Text(jadwalKelas.hari,
                                 style: TextStyle(
                                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                           ],
@@ -91,7 +103,7 @@ class ClassCardWidget extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            Text(matkul,
+                            Text(jadwalKelas.jamMulai,
                                 style: TextStyle(
                                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                           ],
@@ -108,7 +120,7 @@ class ClassCardWidget extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            Text(matkul,
+                            Text(jadwalKelas.namaKelas,
                                 style: TextStyle(
                                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                           ],

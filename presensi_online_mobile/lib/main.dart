@@ -1,6 +1,9 @@
 // import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
 // import 'package:presensi_online_mobile/provider/user_provider.dart';
 // import 'package:presensi_online_mobile/services/auth_services.dart';
+import 'package:presensi_online_mobile/providers/jadwal_provider.dart';
+import 'package:presensi_online_mobile/providers/presensi_provider.dart';
+import 'package:presensi_online_mobile/providers/user_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/view/views/splash/spash_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +18,9 @@ Future<void> main() async {
       // ChangeNotifierProvider(create: (context) => di.sl<ProfileProvider>()),
       // ChangeNotifierProvider(create: (context) => di.sl<UserProvider>()),
       // ChangeNotifierProvider(create: (context) => di.sl<AuthServices>()),
-      // ChangeNotifierProvider(create: (context) => di.sl<JadwalKelasProvider>()),
+      ChangeNotifierProvider(create: (_) => UserProvider()),
+      ChangeNotifierProvider(create: (_) => JadwalProvider()),
+      ChangeNotifierProvider(create: (_) => PresensiProvider()),
     ],
     child: MyApp(),
   ));
