@@ -108,6 +108,29 @@ class ApiController extends Controller
         } 
     }
 
+    public function absensi($nrp, $kodePresensi){
+        $presensi = JadwalMahasiswa::join('presensi_mahasiswa','presensi_mahasiswa.id_jadwal_mahasiswa', '=', 'jadwal_mahasiswa.id')
+                    ->join('presensi', 'presensi.id' ,'=',  'presensi_mahasiswa.id_presensi')
+                    ->where('jadwal_mahasiswa.nrp_mahasiswa', $nrp)
+                    ->where('presensi.kode_presensi', $kodePresensi)
+                    ->select('presensi_mahasiswa.*')
+                    ->first();
+
+        if (is_null($presensi) ) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Kode Presensi tidak ditemukan'
+            ], 401);
+        }
+        else{
+            return response()->json([
+                'status' => 'success',
+                'data' => $presensi
+            ], 200);
+        } 
+        
+    }
+
     public function readDosen()
     {
         $dosen = Dosen::all();
