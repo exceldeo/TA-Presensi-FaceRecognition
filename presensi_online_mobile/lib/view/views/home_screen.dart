@@ -10,6 +10,7 @@ import 'package:presensi_online_mobile/utility/strings.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
 import 'package:presensi_online_mobile/utility/user_preference.dart';
 import 'package:presensi_online_mobile/view/views/checking_screen.dart';
+import 'package:presensi_online_mobile/view/views/input_presensi_code_screen.dart';
 import 'package:presensi_online_mobile/view/views/qr_scanner_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/card_class_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,47 +25,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // UserModel _user;
-  // UserProvider _userProvider;
-  // JadwalKelasProvider _jadwalKelasProvider;
-  // List<JadwalKelasModel> _listJadwalKelas;
-  // var indicator = new GlobalKey<RefreshIndicatorState>();
-  // bool _loading = true;
-
-  // Future fetchDataJadwalKelas({nrp: String}) async {
-  //   _jadwalKelasProvider =
-  //       Provider.of<JadwalKelasProvider>(context, listen: false);
-  //   _listJadwalKelas =
-  //       await _jadwalKelasProvider.fetchDataListJadwalKelas(nrp: nrp);
-  // }
-
   UserPreferenceModel _userPreference;
-
-  // Future fetchDataUserPreference() async {
-  //   _userPreference = Provider.of<UserPreferenceModel>(context, listen: false);
-  //   _userPreference = await UserPreferences().getUser();
-  // }
-
-  @override
-  void initState() {
-    super.initState();
-    // fetchDataUserPreference();
-    // _userProvider = Provider.of<UserProvider>(context, listen: false);
-    // _user = _userProvider.getUser();
-    // fetchDataJadwalKelas(nrp: _user.nrp);
-    // _jadwalKelasProvider =
-    //     Provider.of<JadwalKelasProvider>(context, listen: false);
-    // _listJadwalKelas = _jadwalKelasProvider.getListJadwalKelas();
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (_userProvider.loadingStateGetUser &&
-    //       _jadwalKelasProvider.loadingStateGetJadwalKelas) {
-    //     indicator.currentState?.show();
-    //   } else {
-    //     indicator.currentState?.deactivate();
-    //   }
-    // });
-  }
 
   Widget _homeToolbar(BuildContext context) {
     return Container(
@@ -96,28 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                       fontWeight: FontWeight.bold),
                 ),
-                // Text(
-                //   "Harap traning wajah terlebih dahulu",
-                //   style: khulaRegular.copyWith(
-                //       color: ColorResources.COLOR_PRIMARY,
-                //       fontSize: Dimensions.FONT_SIZE_SMALL,
-                //       fontWeight: FontWeight.w100),
-                // ),
               ],
             ),
           ),
-          // Container(
-          //   width: 37,
-          //   height: 35,
-          //   margin: EdgeInsets.only(right: 10),
-          //   child: CircleAvatar(
-          //     backgroundColor: ColorResources.COLOR_GAINSBORO,
-          //     child: Icon(
-          //       Icons.person,
-          //       color: ColorResources.COLOR_WHITE,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -166,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: CheckingScreen(),
+                          screen: InputPresensiCodeScreen(),
                           withNavBar: false,
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,

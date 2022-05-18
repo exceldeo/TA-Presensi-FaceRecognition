@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:presensi_online_mobile/models/jadwal.dart';
+import 'package:presensi_online_mobile/models/jadwalDetail.dart';
 import 'package:presensi_online_mobile/models/presensi.dart';
 import 'package:presensi_online_mobile/models/user.dart';
 import 'dart:async';
@@ -53,5 +54,67 @@ class PresensiProvider with ChangeNotifier {
 
   void resetPresensi() {
     List<Presensi> _presensiList = [];
+  }
+
+  Future<Map<String, dynamic>> checkPresensi({kodePresensi: String}) async {
+    var result;
+
+    final user = await UserPreferences().getUser();
+    final userNrp = user.nrp;
+
+    Response response = await get(
+      AppConstants.BASE_URL + "${userNrp}/${kodePresensi}/absensi",
+    );
+
+    if (response.statusCode == 200) {
+      var responseData = Map<String, dynamic>.from(json.decode(response.body));
+      var jadwal = JadwalDetail.fromJson(responseData["data"]);
+
+      result = {
+        'status': true,
+        'message': 'Successful',
+        'data': jadwal,
+      };
+    } else {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      notifyListeners();
+
+      result = {
+        'status': false,
+        'message': responseData['message'],
+      };
+    }
+
+    // print(result);
+    return result;
+  }
+
+  Future<Map<String, dynamic>> ubahPresensi(
+      {idPresensiMahasiswa: String}) async {
+    var result;
+
+    Response response = await get(
+      AppConstants.BASE_URL + "${idPresensiMahasiswa}/updateAbsensi",
+    );
+
+    if (response.statusCode == 200) {
+      result = {
+        'status': true,
+        'message': 'Successful',
+      };
+    } else {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      notifyListeners();
+
+      result = {
+        'status': false,
+        'message': responseData['message'],
+      };
+    }
+
+    // print(result);
+    return result;
   }
 }

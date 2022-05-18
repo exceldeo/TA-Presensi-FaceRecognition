@@ -14,7 +14,7 @@ class JadwalProvider with ChangeNotifier {
 
   Future<Map<String, dynamic>> fetchJadwal() async {
     var result;
-
+    _jadwalList = [];
     final user = await UserPreferences().getUser();
     final userNrp = user.nrp;
 
