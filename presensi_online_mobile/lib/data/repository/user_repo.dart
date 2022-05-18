@@ -28,22 +28,20 @@ class UserRepo {
   //   }
   // }
 
-  Future<ApiResponse<UserModel>> authLogin(
+  Future<Map<String, dynamic>> authLogin(
       {nrp: String, password: String}) async {
     var dio = Dio();
-    try {
-      final response = await dio.post(AppConstants.BASE_URL + 'login',
-          data: {"nrp": "${nrp}", "password": "${password}"});
-      // final jsonData = json.decode(response.data);
-      var map = Map<String, dynamic>.from(response.data);
-      // print("response");
-      // print(map['data']);
-      // print("response");
-      // var objects = UserModel.fromJson(map);
-      final objects = UserModel.fromJson(map['data']);
-      return ApiResponse.withSuccess(objects);
-    } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-    }
+    // try {
+    //   final response = await dio.post(AppConstants.BASE_URL + 'login',
+    //       data: {"nrp": "${nrp}", "password": "${password}"});
+    //   final objects = UserModel.fromJson(map['data']);
+    //   return ApiResponse.withSuccess(objects);
+    // } catch (e) {
+    //   return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    // }
+    final response = await dio.post(AppConstants.BASE_URL + 'login',
+        data: {"nrp": "${nrp}", "password": "${password}"});
+    var map = Map<String, dynamic>.from(response.data);
+    return map;
   }
 }

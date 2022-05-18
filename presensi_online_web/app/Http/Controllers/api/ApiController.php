@@ -8,7 +8,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Jadwal;
 use App\Models\Dosen;
-
+use App\Models\JadwalMahasiswa;
 
 class ApiController extends Controller
 {
@@ -35,20 +35,30 @@ class ApiController extends Controller
         }
     }
 
-    // public function readKelasByNrp($nrp)
-    // {
-    //     $jadwalMahasiswa
-    //     $jadwal = Jadwal::where('jadwal.id', $jadwal->id)->join('dosen', 'dosen.nip', '=', 'jadwal.id_dosen')
-    //             ->join('matakuliah', 'matakuliah.id', '=', 'jadwal.id_matakuliah')
-    //             ->join('kelas', 'kelas.id', '=', 'jadwal.id_kelas')
-    //             ->select('jadwal.id as id_jadwal', 'jadwal.*', 'dosen.*', 'matakuliah.*', 'kelas.*')->first();
+    public function readKelasByNrp($nrp)
+    {
+        $jadwals = array();
+        $jadwalMahasiswas = JadwalMahasiswa::where('nrp_mahasiswa', $nrp)->get();
+        foreach($jadwalMahasiswas as $jadwalMahasiswa){
+            $jadwal = Jadwal::where('jadwal.id', $jadwalMahasiswa->id_jadwal)->join('dosen', 'dosen.nip', '=', 'jadwal.id_dosen')
+                    ->join('matakuliah', 'matakuliah.id', '=', 'jadwal.id_matakuliah')
+                    ->join('kelas', 'kelas.id', '=', 'jadwal.id_kelas')
+                    ->select('jadwal.id as id_jadwal', 'jadwal.*', 'dosen.*', 'matakuliah.*', 'kelas.*')->first();
+            array_push($jadwals, $jadwal);
+        }
 
-    //     if ($mahasiswa) {
-    //         return response()->json(['user' => $mahasiswa], 200);
-    //     } else {
-    //         return response()->json(['error' => 'Mahasiswa tidak ditemukan'], 401);
-    //     }
-    // }
+        if ($jadwals) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $jadwals
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tidak ada kelas'
+            ], 401);
+        }
+    }
 
     public function readDosen()
     {

@@ -1,4 +1,6 @@
+import 'package:presensi_online_mobile/data/model/jadwal_kelas_model.dart';
 import 'package:presensi_online_mobile/data/model/user_model.dart';
+import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
 import 'package:presensi_online_mobile/provider/user_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
@@ -21,15 +23,36 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   UserModel _user;
   UserProvider _userProvider;
+  JadwalKelasProvider _jadwalKelasProvider;
+  List<JadwalKelasModel> _listJadwalKelas;
+  var indicator = new GlobalKey<RefreshIndicatorState>();
+  bool _loading = true;
+
+  Future fetchDataJadwalKelas({nrp: String}) async {
+    _jadwalKelasProvider =
+        Provider.of<JadwalKelasProvider>(context, listen: false);
+    _listJadwalKelas =
+        await _jadwalKelasProvider.fetchDataListJadwalKelas(nrp: nrp);
+  }
 
   @override
-  void initState() {
+  Future<void> initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _userProvider = Provider.of<UserProvider>(context, listen: false);
-    // });
-    Future.delayed(Duration.zero).then((_) {
-      _user = Provider.of<UserProvider>(context, listen: false).user;
+
+    _userProvider = Provider.of<UserProvider>(context, listen: false);
+    _user = _userProvider.getUser();
+    fetchDataJadwalKelas(nrp: _user.nrp);
+    _jadwalKelasProvider =
+        Provider.of<JadwalKelasProvider>(context, listen: false);
+    _listJadwalKelas = _jadwalKelasProvider.getListJadwalKelas();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_userProvider.loadingStateGetUser &&
+          _jadwalKelasProvider.loadingStateGetJadwalKelas) {
+        indicator.currentState?.show();
+      } else {
+        indicator.currentState?.deactivate();
+      }
     });
   }
 
@@ -57,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Text(
                   ///nama
-                  _user.namaMahasiswa,
+                  _user?.namaMahasiswa,
                   style: khulaRegular.copyWith(
                       color: ColorResources.COLOR_BLACK,
                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
@@ -172,19 +195,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // _list() => Container(
+  //       color: ColorResources.COLOR_WHITE,
+  //       child: ListView(
+  //         primary: false,
+  //         shrinkWrap: true,
+  //         children: [
+  //           ClassCardWidget("data"),
+  //           ClassCardWidget("data2"),
+  //           ClassCardWidget("data"),
+  //           ClassCardWidget("data2"),
+  //           ClassCardWidget("data"),
+  //           ClassCardWidget("data2")
+  //         ],
+  //       ),
+  //     );
+
   _list() => Container(
         color: ColorResources.COLOR_WHITE,
         child: ListView(
           primary: false,
           shrinkWrap: true,
-          children: [
-            ClassCardWidget("data"),
-            ClassCardWidget("data2"),
-            ClassCardWidget("data"),
-            ClassCardWidget("data2"),
-            ClassCardWidget("data"),
-            ClassCardWidget("data2")
-          ],
+          children:
+              _listJadwalKelas.map((e) => ClassCardWidget("data2")).toList(),
         ),
       );
 }

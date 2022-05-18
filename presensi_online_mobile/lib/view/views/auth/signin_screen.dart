@@ -1,4 +1,6 @@
+import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
 import 'package:presensi_online_mobile/provider/user_provider.dart';
+import 'package:presensi_online_mobile/services/auth_services.dart';
 import 'package:presensi_online_mobile/view/views/auth/widget/social_media_widget.dart';
 import 'package:presensi_online_mobile/view/views/startup_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/button/custom_button.dart';
@@ -22,11 +24,11 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   void initState() {
     super.initState();
-    // final provider = Provider.of<UserProvider>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
+    UserProvider provider = Provider.of<UserProvider>(context);
     TextEditingController _nrpController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     FocusNode _nrpNode = FocusNode();
@@ -124,25 +126,19 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   child: CustomButton(
                     btnTxt: Strings.SIGN_IN,
-                    onTap: () {
-                      final provider =
-                          Provider.of<UserProvider>(context, listen: false);
-                      provider
-                          .authLogin(
-                              nrp: _nrpController.value.text.trim(),
-                              password: _passwordController.value.text.trim())
-                          .then((value) {
-                        if (provider.user != null) {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      StartupScreen()));
-                        } else {
-                          setState(() {
-                            alert = "Password atau NRP salah";
-                          });
-                        }
-                      });
+                    onTap: () async {
+                      bool returnValue = await provider.authLogin(
+                          nrp: _nrpController.value.text.trim(),
+                          password: _passwordController.value.text.trim());
+                      if (returnValue == true) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                StartupScreen()));
+                      } else {
+                        setState(() {
+                          alert = "Password atau NRP salah";
+                        });
+                      }
                     },
                   ),
                 ),
