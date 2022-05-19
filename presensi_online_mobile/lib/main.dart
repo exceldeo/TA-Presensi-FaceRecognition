@@ -5,6 +5,7 @@ import 'package:presensi_online_mobile/providers/jadwal_provider.dart';
 import 'package:presensi_online_mobile/providers/presensi_provider.dart';
 import 'package:presensi_online_mobile/providers/user_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
+import 'package:presensi_online_mobile/view/views/auth/signin_screen.dart';
 import 'package:presensi_online_mobile/view/views/splash/spash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: SplashScreen(),
+      routes: {
+        '/signIn': (context) => SignInScreen(),
+      },
     );
   }
 }

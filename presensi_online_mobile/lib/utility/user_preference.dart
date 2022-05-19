@@ -20,4 +20,11 @@ class UserPreferences {
 
     return UserPreferenceModel(nrp: nrp, namaMahasiswa: namaMahasiswa);
   }
+
+  void removeUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.remove('nrp');
+    prefs.remove('namaMahasiswa');
+  }
 }

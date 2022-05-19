@@ -114,16 +114,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.all(15),
-                  child: CustomButton(
-                    btnTxt: Strings.LOGOUT,
-                    onTap: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => SignInScreen()));
-                    },
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.all(15),
+                //   child: CustomButton(
+                //     btnTxt: Strings.LOGOUT,
+                //     onTap: () {
+                //       // Future<Map<String, dynamic>> result =
+                //       //     userProvider.logout();
+                //       // result.then((value) => Navigator.pushAndRemoveUntil(
+                //       //         context,
+                //       //         MaterialPageRoute(
+                //       //             builder: (BuildContext context) =>
+                //       //                 SignInScreen()),
+                //       //         (route) => false)
+                //       Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //           builder: (BuildContext context) => SignInScreen()));
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

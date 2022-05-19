@@ -4,6 +4,7 @@
 // import 'package:presensi_online_mobile/provider/user_provider.dart';
 import 'package:presensi_online_mobile/models/userPreference.dart';
 import 'package:presensi_online_mobile/providers/jadwal_provider.dart';
+import 'package:presensi_online_mobile/providers/user_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
@@ -26,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserPreferenceModel _userPreference;
+  String _namaMahasiswa = '';
 
   Widget _homeToolbar(BuildContext context) {
     return Container(
@@ -50,8 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 10,
                 ),
                 Text(
-                  ///nama
-                  "Excel",
+                  _namaMahasiswa,
                   style: khulaRegular.copyWith(
                       color: ColorResources.COLOR_BLACK,
                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
@@ -63,6 +64,17 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _namaMahasiswa = 'Loading...';
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    userProvider.getNamaUser().then((value) => setState(() {
+          _namaMahasiswa = value;
+        }));
   }
 
   @override
@@ -125,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: 5,
                           ),
-                          Text("Scan QR Code untuk Absen",
+                          Text("Catat Kehadiran",
                               style: TextStyle(
                                   fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                         ],

@@ -95,4 +95,23 @@ class UserProvider with ChangeNotifier {
     // print(result);
     return result;
   }
+
+  Future<Map<String, dynamic>> logout() async {
+    var result;
+    UserPreferences().removeUser();
+
+    result = {'status': true};
+    print(result);
+
+    return result;
+  }
+
+  Future<String> getNamaUser() async {
+    var result;
+
+    final user = await UserPreferences().getUser();
+    final userNama = user.namaMahasiswa;
+
+    return userNama;
+  }
 }
