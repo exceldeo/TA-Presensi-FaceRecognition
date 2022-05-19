@@ -21,7 +21,7 @@ class ApiController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'NRP tidak ditemukan'
-            ], 200);
+            ], 401);
         }
         $check = Hash::check(request('password'), $mahasiswa->password);
         if ($check ) {
@@ -33,7 +33,7 @@ class ApiController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Password salah'
-            ], 200);
+            ], 401);
         }
     }
 
