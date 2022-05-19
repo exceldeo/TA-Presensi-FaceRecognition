@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/view/views/auth/signin_screen.dart';
-import 'package:presensi_online_mobile/view/views/onBorad/doctor_onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:presensi_online_mobile/data/model/specialist.dart';
+import 'package:presensi_online_mobile/models/presensi.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
@@ -8,21 +8,15 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:presensi_online_mobile/view/views/detail_presensi_screen.dart';
 
 class PresensiCardWidget extends StatelessWidget {
-  final String matkul;
+  final Presensi presensi;
+  final int index;
 
-  PresensiCardWidget(this.matkul);
+  PresensiCardWidget(this.presensi, this.index);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        pushNewScreen(
-          context,
-          screen: DetailPresensiScreen(),
-          withNavBar: false,
-          pageTransitionAnimation: PageTransitionAnimation.cupertino,
-        );
-      },
+      onTap: () {},
       child: Container(
         margin: EdgeInsets.only(bottom: 5),
         color: ColorResources.COLOR_WHITE,
@@ -36,7 +30,7 @@ class PresensiCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(16.0),
                       topLeft: Radius.circular(16.0))),
-              child: Text("Perkuliahan ke - 1",
+              child: Text("Perkuliahan ke - ${index + 1}",
                   style: TextStyle(
                       color: ColorResources.COLOR_WHITE,
                       fontSize: Dimensions.FONT_SIZE_LARGE,
@@ -69,7 +63,7 @@ class PresensiCardWidget extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text("Senin, 12 Januari 2020",
+                      Text("${presensi.tanggalPresensi}",
                           style:
                               TextStyle(fontSize: Dimensions.FONT_SIZE_SMALL)),
                     ],
@@ -84,34 +78,10 @@ class PresensiCardWidget extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text("08.00 - 10.00",
+                      Text("${presensi.jamMulai} - ${presensi.jamAkhir}",
                           style:
                               TextStyle(fontSize: Dimensions.FONT_SIZE_SMALL)),
                     ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Dosen",
-                    style: khulaSemiBold.copyWith(
-                      fontSize: Dimensions.FONT_SIZE_LARGE,
-                      color: ColorResources.COLOR_BLACK,
-                    ),
-                  ),
-                  Text(
-                    "Dosen 1",
-                    style: khulaRegular.copyWith(
-                      fontSize: Dimensions.FONT_SIZE_DEFAULT,
-                      color: ColorResources.COLOR_BLACK,
-                    ),
-                  ),
-                  Text(
-                    "Dosen 2",
-                    style: khulaRegular.copyWith(
-                      fontSize: Dimensions.FONT_SIZE_DEFAULT,
-                      color: ColorResources.COLOR_BLACK,
-                    ),
                   ),
                   SizedBox(
                     height: 15,
@@ -123,11 +93,17 @@ class PresensiCardWidget extends StatelessWidget {
                       color: ColorResources.COLOR_BLACK,
                     ),
                   ),
-                  Text("Hadir",
-                      style: TextStyle(
-                          color: ColorResources.COLOR_GREEN,
-                          fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
-                          fontWeight: FontWeight.bold)),
+                  presensi.status == 0
+                      ? Text("Tidak Hadir",
+                          style: TextStyle(
+                              color: ColorResources.COLOR_RED,
+                              fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
+                              fontWeight: FontWeight.bold))
+                      : Text("Hadir",
+                          style: TextStyle(
+                              color: ColorResources.COLOR_GREEN,
+                              fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
+                              fontWeight: FontWeight.bold)),
                   SizedBox(
                     height: 15,
                   ),
@@ -140,7 +116,7 @@ class PresensiCardWidget extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text("12 Januari 2020",
+                      Text("${presensi.tanggalAbsen}",
                           style: TextStyle(
                               fontSize: Dimensions.FONT_SIZE_SMALL,
                               fontWeight: FontWeight.bold)),
@@ -155,7 +131,7 @@ class PresensiCardWidget extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text("08.10",
+                      Text("${presensi.jam}",
                           style: TextStyle(
                               fontSize: Dimensions.FONT_SIZE_SMALL,
                               fontWeight: FontWeight.bold)),

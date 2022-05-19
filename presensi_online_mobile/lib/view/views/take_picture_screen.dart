@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:presensi_online_mobile/providers/presensi_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
@@ -16,11 +17,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class TakePictureScreen extends StatefulWidget {
-  final fromSetting;
+  final int idPresensiMahasiswa;
 
-  TakePictureScreen({this.fromSetting});
+  TakePictureScreen({this.idPresensiMahasiswa});
 
   @override
   _TakePictureScreenState createState() => _TakePictureScreenState();
@@ -33,6 +35,8 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    PresensiProvider presensiProvider = Provider.of<PresensiProvider>(context);
+
     return Scaffold(
       backgroundColor: ColorResources.COLOR_HOME_BACKGROUND,
       appBar: AppBar(
@@ -93,13 +97,28 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                       });
                     }
                     ;
-                    pushNewScreen(
-                      context,
-                      screen: SuccessScreen(),
-                      withNavBar: false,
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.cupertino,
-                    );
+                    final Future<Map<String, dynamic>> successfulMessage =
+                        presensiProvider.ubahPresensi(
+                            idPresensiMahasiswa:
+                                widget.idPresensiMahasiswa.toString());
+
+                    successfulMessage.then((response) {
+                      if (response['status']) {
+                        pushNewScreen(
+                          context,
+                          screen: SuccessScreen(),
+                          withNavBar: false,
+                          pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                        );
+                      } else {
+                        final snackBar = SnackBar(
+                          content: Text('Ada kesalahan'),
+                          backgroundColor: ColorResources.COLOR_BLACK,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    });
                   },
                   shape: CircleBorder(),
                   child: Image.asset(

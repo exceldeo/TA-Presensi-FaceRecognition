@@ -290,4 +290,10 @@ class Strings {
   static const String PINDAI_KODE_PRESENSI = 'Scan QR Code Presensi';
   static const String CHECKIN_INFORMASI = 'Check-In Informasi';
   static const String SCAN_WAJAH = 'Scan wajah';
+  static const String NRP = 'NRP';
+  static const String TAHUN_MASUK = 'Tahun Masuk';
+  static const String DEPARTEMENT = 'Departement';
+  static const String KIRIM = 'Kirim';
+  static const String MASUKAN_KODE_PRESENSI = 'Masukan Kode Presensi';
+  static const String HALAMAN_KODE_PRESENSI = 'Halaman Kode Presensi';
 }

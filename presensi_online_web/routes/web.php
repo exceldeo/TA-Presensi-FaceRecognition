@@ -26,6 +26,12 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 
     Route::prefix('kelas')->name('kelas.')->group(function () { 
         Route::get('/', 'KelasController@index')->name('index');
+        Route::get('create', 'KelasController@create')->name('create');
+        Route::post('store', 'KelasController@store')->name('store');
+        Route::get('{id}/show', 'KelasController@show')->name('show');
+        Route::get('{id}/edit', 'KelasController@edit')->name('edit');
+        Route::patch('{id}/edit', 'KelasController@update');
+        Route::delete('{id}/delete', 'KelasController@destroy')->name('delete');
     });
 
     Route::prefix('user')->name('user.')->group(function () { 
@@ -54,6 +60,12 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 
     Route::prefix('matkul')->name('matkul.')->group(function () { 
         Route::get('/', 'MatkulController@index')->name('index');
+        Route::get('create', 'MatkulController@create')->name('create');
+        Route::post('store', 'MatkulController@store')->name('store');
+        Route::get('{id}/show', 'MatkulController@show')->name('show');
+        Route::get('{id}/edit', 'MatkulController@edit')->name('edit');
+        Route::patch('{id}/edit', 'MatkulController@update');
+        Route::delete('{id}/delete', 'MatkulController@destroy')->name('delete');
     });
 
     Route::prefix('jadwal')->name('jadwal.')->group(function () { 

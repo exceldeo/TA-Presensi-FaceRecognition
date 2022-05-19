@@ -12,7 +12,7 @@ MyITS Presensi
 <div class="content">
     <nav class="breadcrumb bg-white push">
         <a href="{{route('dosen.dashboard')}}" class="breadcrumb-item">Dashboard</a>
-        <a href="#" class="breadcrumb-item active">Mata Kuliah</a>
+        <a href="#" class="breadcrumb-item active">Management Matkul</a>
     </nav>
 </div>
 @endsection
@@ -28,12 +28,12 @@ MyITS Presensi
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </a>
-                <div class="font-size-lg font-w600">&emsp;Mata Kuliah</div>
+                <div class="font-size-lg font-w600">&emsp;Management Matkul</div>
             </div>
             <div class="block-options">
-                <form class="pull-right mr-5 mb-5" action="#" method="GET">
+                <form class="pull-right mr-5 mb-5" action="{{route('dosen.matkul.create')}}" method="GET">
                     <button type="submit" class="btn btn-sm btn-its-primary">
-                        <i class="fa fa-plus"></i> Create Session
+                        <i class="fa fa-plus"></i> Tambah Matkul
                     </button>
                 </form>
             </div>
@@ -44,45 +44,34 @@ MyITS Presensi
                     <table id="session_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="text-center" >Session</th>
+                                <th class="text-center" >Kode Mata Kuliah</th>
+                                <th class="text-center" >Nama Mata Kuliah</th>
+                                <th class="text-center" >Departemen</th>
+                                <th class="text-center" style="width:18%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="content-li" style="padding: 0 20px 0 20px;">
-                                                    <h5 class="font-size-h6 font-w500 mb-5">
-                                                        <a
-                                                            href="#">
-                                                            <br class="d-sm-none mb-1">
-                                                            test
-                                                        </a>
-                                                    </h5>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-calendar mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="si si-clock mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-clock-o mr-1"></i>test
-                                                    </span>
-                                                    <span class="mr-10">
-                                                        <i class="fa fa-fw fa-user mr-1"></i>test
-                                                    </span>
-                                                    <a
-                                                        href="#">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="fa fa-unlock mr-1"></i> Unlock Session</button>
-                                                    </a>
-                                                    <a
-                                                        href="#" target="_blank">
-                                                        <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                                class="fa fa-envelope mr-1"></i> Send Email</button>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                            @foreach($matkuls as $matkul)
+                                <tr>
+                                    <td>{{$matkul->kode_matakuliah}}</td>
+                                    <td>{{$matkul->nama_matakuliah}}</td>
+                                    <td>{{$matkul->departement}}</td>
+                                    <td>
+                                    <form action="{{route('dosen.matkul.delete', ['id' => $matkul->id])}}" 
+                                            onclick="return confirm('Apakah anda yakin?')"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger pull-right mr-3"><i
+                                                    class="fa fa-trash mr-1"></i> Hapus</button>
+                                        </form>
+                                        <a href="{{route('dosen.matkul.edit', ['id' => $matkul->id])}}">
+                                            <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                                    class="fa fa-pencil mr-1"></i> Edit</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -5,7 +5,6 @@ import 'package:presensi_online_mobile/view/views/splash/spash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:presensi_online_mobile/view/views/training_screen.dart';
 
 class StartupScreen extends StatefulWidget {
   @override
@@ -14,11 +13,10 @@ class StartupScreen extends StatefulWidget {
 
 class _StartupScreenState extends State<StartupScreen> {
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 1);
+      PersistentTabController(initialIndex: 0);
 
   List<Widget> _buildScreens() {
     return [
-      TrainingScreen(),
       HomeScreen(),
       ProfileScreen(),
     ];
@@ -26,11 +24,6 @@ class _StartupScreenState extends State<StartupScreen> {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      PersistentBottomNavBarItem(
-        icon: ImageIcon(AssetImage('assets/Icon/brain.png')),
-        activeColor: Colors.white,
-        //inactiveColor: Colors.grey,
-      ),
       PersistentBottomNavBarItem(
         icon: ImageIcon(AssetImage('assets/Icon/task-white.png')),
         activeColor: Colors.white,

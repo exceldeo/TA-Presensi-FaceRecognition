@@ -1,16 +1,24 @@
-import 'package:presensi_online_mobile/data/repository/doctor_data.dart';
-import 'package:presensi_online_mobile/data/repository/specialist_data.dart';
+// import 'package:presensi_online_mobile/data/model/jadwal_kelas_model.dart';
+// import 'package:presensi_online_mobile/data/model/user_model.dart';
+// import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
+// import 'package:presensi_online_mobile/provider/user_provider.dart';
+import 'package:presensi_online_mobile/models/userPreference.dart';
+import 'package:presensi_online_mobile/providers/jadwal_provider.dart';
+import 'package:presensi_online_mobile/providers/user_provider.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
 import 'package:presensi_online_mobile/utility/style.dart';
+import 'package:presensi_online_mobile/utility/user_preference.dart';
 import 'package:presensi_online_mobile/view/views/checking_screen.dart';
+import 'package:presensi_online_mobile/view/views/input_presensi_code_screen.dart';
 import 'package:presensi_online_mobile/view/views/qr_scanner_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/card_class_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,6 +26,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UserPreferenceModel _userPreference;
+  String _namaMahasiswa = '';
+
   Widget _homeToolbar(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
@@ -41,45 +52,56 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 10,
                 ),
                 Text(
-                  ///nama
-                  Strings.NAMA1,
+                  _namaMahasiswa,
                   style: khulaRegular.copyWith(
                       color: ColorResources.COLOR_BLACK,
                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                       fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  "Harap traning wajah terlebih dahulu",
-                  style: khulaRegular.copyWith(
-                      color: ColorResources.COLOR_PRIMARY,
-                      fontSize: Dimensions.FONT_SIZE_SMALL,
-                      fontWeight: FontWeight.w100),
-                ),
               ],
             ),
           ),
-          // Container(
-          //   width: 37,
-          //   height: 35,
-          //   margin: EdgeInsets.only(right: 10),
-          //   child: CircleAvatar(
-          //     backgroundColor: ColorResources.COLOR_GAINSBORO,
-          //     child: Icon(
-          //       Icons.person,
-          //       color: ColorResources.COLOR_WHITE,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
   }
 
   @override
+  void initState() {
+    super.initState();
+    _namaMahasiswa = 'Loading...';
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    userProvider.getNamaUser().then((value) => setState(() {
+          _namaMahasiswa = value;
+        }));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorResources.COLOR_HOME_BACKGROUND,
-      body: SafeArea(
+    JadwalProvider _jadwalKelasProvider = Provider.of<JadwalProvider>(context);
+
+    _list() => Container(
+          color: ColorResources.COLOR_WHITE,
+          child: ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            itemCount: _jadwalKelasProvider.jadwalList.length,
+            itemBuilder: (context, index) {
+              return ClassCardWidget(_jadwalKelasProvider.jadwalList[index]);
+            },
+          ),
+        );
+
+    return Provider(
+      lazy: false,
+      create: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _jadwalKelasProvider.fetchJadwal();
+        });
+      },
+      dispose: (context, data) {},
+      child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding:
@@ -98,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: CheckingScreen(),
+                          screen: InputPresensiCodeScreen(),
                           withNavBar: false,
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,
@@ -115,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: 5,
                           ),
-                          Text("Scan QR Code untuk Absen",
+                          Text("Catat Kehadiran",
                               style: TextStyle(
                                   fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                         ],
@@ -157,19 +179,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _list() => Container(
-        color: ColorResources.COLOR_WHITE,
-        child: ListView(
-          primary: false,
-          shrinkWrap: true,
-          children: [
-            ClassCardWidget("data"),
-            ClassCardWidget("data2"),
-            ClassCardWidget("data"),
-            ClassCardWidget("data2"),
-            ClassCardWidget("data"),
-            ClassCardWidget("data2")
-          ],
-        ),
-      );
+  // _list() => Container(
+  //       color: ColorResources.COLOR_WHITE,
+  //       child: ListView(
+  //         primary: false,
+  //         shrinkWrap: true,
+  //         children: [
+  //           ClassCardWidget("data"),
+  //           ClassCardWidget("data2"),
+  //           ClassCardWidget("data"),
+  //           ClassCardWidget("data2"),
+  //           ClassCardWidget("data"),
+  //           ClassCardWidget("data2")
+  //         ],
+  //       ),
+  //     );
+
 }

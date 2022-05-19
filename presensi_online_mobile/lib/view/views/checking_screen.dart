@@ -1,5 +1,5 @@
-import 'package:presensi_online_mobile/data/repository/doctor_data.dart';
-import 'package:presensi_online_mobile/data/repository/specialist_data.dart';
+import 'package:presensi_online_mobile/models/jadwal.dart';
+import 'package:presensi_online_mobile/models/jadwalDetail.dart';
 import 'package:presensi_online_mobile/utility/colorResources.dart';
 import 'package:presensi_online_mobile/utility/dimensions.dart';
 import 'package:presensi_online_mobile/utility/strings.dart';
@@ -13,6 +13,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class CheckingScreen extends StatefulWidget {
+  final JadwalDetail jadwalKelas;
+
+  CheckingScreen({this.jadwalKelas});
   @override
   _CheckingScreenState createState() => _CheckingScreenState();
 }
@@ -35,7 +38,7 @@ class _CheckingScreenState extends State<CheckingScreen> {
                 borderRadius: BorderRadius.circular(4)),
             padding: EdgeInsets.all(2),
             child: Text(
-              "Code Matkul",
+              widget.jadwalKelas.kodeMatakuliah,
               style: khulaRegular.copyWith(
                 fontSize: Dimensions.FONT_SIZE_SMALL,
                 color: ColorResources.COLOR_WHITE,
@@ -46,7 +49,7 @@ class _CheckingScreenState extends State<CheckingScreen> {
             height: 10,
           ),
           Text(
-            "Nama Kelas",
+            widget.jadwalKelas.namaMatakuliah,
             style: khulaSemiBold.copyWith(
               fontSize: Dimensions.FONT_SIZE_LARGE,
               color: ColorResources.COLOR_BLACK,
@@ -69,7 +72,7 @@ class _CheckingScreenState extends State<CheckingScreen> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("matkul",
+                    Text(widget.jadwalKelas.hari,
                         style:
                             TextStyle(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                   ],
@@ -86,7 +89,7 @@ class _CheckingScreenState extends State<CheckingScreen> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("matkul",
+                    Text(widget.jadwalKelas.jamMulai,
                         style:
                             TextStyle(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                   ],
@@ -103,7 +106,7 @@ class _CheckingScreenState extends State<CheckingScreen> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("matkul",
+                    Text(widget.jadwalKelas.namaKelas,
                         style:
                             TextStyle(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                   ],
@@ -122,14 +125,7 @@ class _CheckingScreenState extends State<CheckingScreen> {
             ),
           ),
           Text(
-            "Dosen",
-            style: khulaRegular.copyWith(
-              fontSize: Dimensions.FONT_SIZE_DEFAULT,
-              color: ColorResources.COLOR_BLACK,
-            ),
-          ),
-          Text(
-            "Dosen",
+            widget.jadwalKelas.namaDosen,
             style: khulaRegular.copyWith(
               fontSize: Dimensions.FONT_SIZE_DEFAULT,
               color: ColorResources.COLOR_BLACK,
@@ -166,7 +162,10 @@ class _CheckingScreenState extends State<CheckingScreen> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: TakePictureScreen(),
+                          screen: TakePictureScreen(
+                            idPresensiMahasiswa:
+                                widget.jadwalKelas.idPresensiMahasiswa,
+                          ),
                           withNavBar: false,
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,
