@@ -11,6 +11,7 @@ use App\Models\Mahasiswa;
 use App\Models\JadwalMahasiswa;
 use App\Models\Presensi;
 use App\Models\PresensiMahasiswa;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class JadwalController extends Controller
 {
@@ -298,5 +299,14 @@ class JadwalController extends Controller
         }
 
         return redirect()->back()->with($message);
+    }
+
+    public function showKehadiran($id, $id_presensi)
+    {
+        $presensi = Presensi::where('id', $id_presensi)->first();
+        $qrcode = QrCode::size(400)->generate($presensi->kode_presensi);
+        // dd($qrcode);
+
+        return view('dashboard.jadwal.kehadiran.show', compact('presensi', 'id', 'qrcode'));
     }
 }

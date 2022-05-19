@@ -87,6 +87,7 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
             Route::prefix('kehadiran')->name('kehadiran.')->group(function () { 
                 Route::get('create', 'JadwalController@createKehadiran')->name('create');
                 Route::post('store', 'JadwalController@storeKehadiran')->name('store');
+                Route::get('{id_presensi}/show', 'JadwalController@showKehadiran')->name('show');
                 Route::get('{id_presensi}/edit', 'JadwalController@editKehadiran')->name('edit');
                 Route::patch('{id_presensi}/edit', 'JadwalController@updateKehadiran');
                 Route::delete('{id_presensi}/delete', 'JadwalController@destroyKehadiran')->name('delete');
