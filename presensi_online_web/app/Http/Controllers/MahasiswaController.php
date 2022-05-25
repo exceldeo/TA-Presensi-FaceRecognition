@@ -61,7 +61,9 @@ class MahasiswaController extends Controller
 
     public function show($nrp)
     {
-        //
+        $mahasiswa = Mahasiswa::where('nrp', $nrp)->first();
+        
+        return view('dashboard.mahasiswa.show', compact('mahasiswa'));
     }
 
     public function edit($nrp)

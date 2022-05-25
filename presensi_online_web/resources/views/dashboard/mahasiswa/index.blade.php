@@ -55,7 +55,7 @@ MyITS Presensi
                             @foreach($mahasiswas as $mahasiswa)
                                 <tr>
                                     <td>
-                                        <a href="#">
+                                        <a href="{{route('dosen.mahasiswa.show', ['nrp' => $mahasiswa->nrp])}}">
                                             <br class="d-sm-none mb-1">
                                             {{$mahasiswa->nrp}}
                                         </a>

@@ -19,8 +19,6 @@ class MahasiswaSeeder extends Seeder
             'departement' => 'Teknik Informatika',
             'tahun_masuk' => 2018,
             'password' => Hash::make('password'),
-            'img_path' => 'belum',
-            'is_verifikasi' => 0,
         ]);
 
         DB::table('mahasiswa')->insert([
@@ -30,8 +28,6 @@ class MahasiswaSeeder extends Seeder
             'email' => 'latip@gmail.com',
             'departement' => 'Teknik Informatika',
             'tahun_masuk' => 2018,
-            'img_path' => 'belum',
-            'is_verifikasi' => 0,
         ]);
     }
 }
