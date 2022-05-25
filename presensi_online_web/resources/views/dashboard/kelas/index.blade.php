@@ -64,7 +64,7 @@ MyITS Presensi
                                                     class="fa fa-trash mr-1"></i> Hapus</button>
                                         </form>
                                         <a href="{{route('dosen.kelas.edit', ['id' => $class->id])}}">
-                                            <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
+                                            <button class="btn btn-sm btn-warning pull-right mr-3"><i
                                                     class="fa fa-pencil mr-1"></i> Edit</button>
                                         </a>
                                     </td>

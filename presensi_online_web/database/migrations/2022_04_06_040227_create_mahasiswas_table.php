@@ -20,8 +20,6 @@ class CreateMahasiswasTable extends Migration
             $table->string('tahun_masuk');
             $table->string('email');
             $table->string('departement');
-            $table->string('img_path');
-            $table->integer('is_verifikasi');
             $table->timestamps();
         });
     }

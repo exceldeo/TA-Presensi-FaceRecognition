@@ -55,9 +55,48 @@ Edit Mata Kuliah
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="">Departemen</label>
-                            <input value="{{$matkul->departement}}"
-                            autocomplete="off" type="text" class="form-control" id="input-name" name="departemen">
+                            <label class="" for="example-select">Departemen</label>
+                            <select autocomplete="off" class="form-control" id="example-select" name="departemen">
+                                <option <?php if($matkul->departement == "Fisika") echo 'selected'; ?> value="Fisika">Fisika</option>
+                                <option <?php if($matkul->departement == "Matematika") echo 'selected'; ?> value="Matematika">Matematika</option>
+                                <option <?php if($matkul->departement == "Statistika") echo 'selected'; ?> value="Statistika">Statistika</option>
+                                <option <?php if($matkul->departement == "Kimia") echo 'selected'; ?> value="Kimia">Kimia</option>
+                                <option <?php if($matkul->departement == "Biologi") echo 'selected'; ?> value="Biologi">Biologi</option>
+                                <option <?php if($matkul->departement == "Aktuaria") echo 'selected'; ?> value="Aktuaria">Aktuaria</option>
+                                <option <?php if($matkul->departement == "Teknik Perkapalan") echo 'selected'; ?> value="Teknik Perkapalan">Teknik Perkapalan</option>
+                                <option <?php if($matkul->departement == "Teknik Sistem Perkapalan") echo 'selected'; ?> value="Teknik Sistem Perkapalan">Teknik Sistem Perkapalan</option>
+                                <option <?php if($matkul->departement == "Teknik Kelautan") echo 'selected'; ?> value="Teknik Kelautan">Teknik Kelautan</option>
+                                <option <?php if($matkul->departement == "Teknik Transportasi Laut") echo 'selected'; ?> value="Teknik Transportasi Laut">Teknik Transportasi Laut</option>
+                                <option <?php if($matkul->departement == "Teknik Mesin") echo 'selected'; ?> value="Teknik Mesin">Teknik Mesin</option>
+                                <option <?php if($matkul->departement == "Teknik Kimia") echo 'selected'; ?> value="Teknik Kimia">Teknik Kimia</option>
+                                <option <?php if($matkul->departement == "Teknik Fisika") echo 'selected'; ?> value="Teknik Fisika">Teknik Fisika</option>
+                                <option <?php if($matkul->departement == "Teknik Sistem dan Industri") echo 'selected'; ?> value="Teknik Sistem dan Industri">Teknik Sistem dan Industri</option>
+                                <option <?php if($matkul->departement == "Teknik Material") echo 'selected'; ?> value="Teknik Material">Teknik Material</option>
+                                <option <?php if($matkul->departement == "Teknik Elektro") echo 'selected'; ?> value="Teknik Elektro">Teknik Elektro</option>
+                                <option <?php if($matkul->departement == "Teknik Biomedik") echo 'selected'; ?> value="Teknik Biomedik">Teknik Biomedik</option>
+                                <option <?php if($matkul->departement == "Teknik Komputer") echo 'selected'; ?> value="Teknik Komputer">Teknik Komputer</option>
+                                <option <?php if($matkul->departement == "Teknik Informatika") echo 'selected'; ?> value="Teknik Informatika">Teknik Informatika</option>
+                                <option <?php if($matkul->departement == "Sistem Informasi") echo 'selected'; ?> value="Sistem Informasi">Sistem Informasi</option>
+                                <option <?php if($matkul->departement == "Teknologi Informasi") echo 'selected'; ?> value="Teknologi Informasi">Teknologi Informasi</option>
+                                <option <?php if($matkul->departement == "Teknik Sipil") echo 'selected'; ?> value="Teknik Sipil">Teknik Sipil</option>
+                                <option <?php if($matkul->departement == "Arsitektur") echo 'selected'; ?> value="Arsitektur">Arsitektur</option>
+                                <option <?php if($matkul->departement == "Teknik Lingkungan") echo 'selected'; ?> value="Teknik Lingkungan">Teknik Lingkungan</option>
+                                <option <?php if($matkul->departement == "Perencanaan Wilayah dan Kota") echo 'selected'; ?> value="Perencanaan Wilayah dan Kota">Perencanaan Wilayah dan Kota</option>
+                                <option <?php if($matkul->departement == "Teknik Geomatika") echo 'selected'; ?> value="Teknik Geomatika">Teknik Geomatika</option>
+                                <option <?php if($matkul->departement == "Teknik Geofisika") echo 'selected'; ?> value="Teknik Geofisika">Teknik Geofisika</option>
+                                <option <?php if($matkul->departement == "Desain Produk Industri") echo 'selected'; ?> value="Desain Produk Industri">Desain Produk Industri</option>
+                                <option <?php if($matkul->departement == "Desain Interior") echo 'selected'; ?> value="Desain Interior">Desain Interior</option>
+                                <option <?php if($matkul->departement == "Desain Komunikasi Visual") echo 'selected'; ?> value="Desain Komunikasi Visual">Desain Komunikasi Visual</option>
+                                <option <?php if($matkul->departement == "Manajemen Bisnis") echo 'selected'; ?> value="Manajemen Bisnis">Manajemen Bisnis</option>
+                                <option <?php if($matkul->departement == "Studi Pembangunan") echo 'selected'; ?> value="Studi Pembangunan">Studi Pembangunan</option>
+                                <option <?php if($matkul->departement == "Manajemen Teknologi") echo 'selected'; ?> value="Manajemen Teknologi">Manajemen Teknologi</option>
+                                <option <?php if($matkul->departement == "Teknik Infrastruktur Sipil") echo 'selected'; ?> value="Teknik Infrastruktur Sipil">Teknik Infrastruktur Sipil</option>
+                                <option <?php if($matkul->departement == "Teknik Mesin Industri") echo 'selected'; ?> value="Teknik Mesin Industri">Teknik Mesin Industri</option>
+                                <option <?php if($matkul->departement == "Teknik Elektro Otomasi") echo 'selected'; ?> value="Teknik Elektro Otomasi">Teknik Elektro Otomasi</option>
+                                <option <?php if($matkul->departement == "Teknik Kimia Industri") echo 'selected'; ?> value="Teknik Kimia Industri">Teknik Kimia Industri</option>
+                                <option <?php if($matkul->departement == "Teknik Instrumentasi") echo 'selected'; ?> value="Teknik Instrumentasi">Teknik Instrumentasi</option>
+                                <option <?php if($matkul->departement == "Statistika Bisnis") echo 'selected'; ?> value="Statistika Bisnis">Statistika Bisnis</option>
+                            </select>
                         </div>
                     </div>
                 </div>

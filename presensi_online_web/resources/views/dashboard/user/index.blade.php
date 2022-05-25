@@ -55,7 +55,7 @@ MyITS Presensi
                             @foreach($users as $user)
                                 <tr>
                                     <td>
-                                        <a href="#">
+                                        <a href="{{route('dosen.user.show', ['nip' => $user->nip])}}">
                                             <br class="d-sm-none mb-1">
                                             {{$user->nip}}
                                         </a>

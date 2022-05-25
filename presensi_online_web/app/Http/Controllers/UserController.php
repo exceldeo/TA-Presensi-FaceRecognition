@@ -56,7 +56,10 @@ class UserController extends Controller
 
     public function show($nip)
     {
-        //
+        $dosen = Dosen::where('nip', $nip)->first();
+        // dd($dosen);
+        return view('dashboard.user.show', compact('dosen'));
+
     }
 
     public function edit($nip)
