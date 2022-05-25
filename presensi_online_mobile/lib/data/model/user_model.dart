@@ -5,8 +5,6 @@ class UserModel {
   String tahunMasuk;
   String email;
   String departement;
-  String imgPath;
-  int isVerifikasi;
 
   UserModel(
       {this.nrp,
@@ -14,9 +12,7 @@ class UserModel {
       this.password,
       this.tahunMasuk,
       this.email,
-      this.departement,
-      this.imgPath,
-      this.isVerifikasi});
+      this.departement});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     nrp = json['nrp'];
@@ -25,8 +21,6 @@ class UserModel {
     tahunMasuk = json['tahun_masuk'];
     email = json['email'];
     departement = json['departement'];
-    imgPath = json['img_path'];
-    isVerifikasi = json['is_verifikasi'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,8 +31,6 @@ class UserModel {
     data['tahun_masuk'] = this.tahunMasuk;
     data['email'] = this.email;
     data['departement'] = this.departement;
-    data['img_path'] = this.imgPath;
-    data['is_verifikasi'] = this.isVerifikasi;
     return data;
   }
 }
