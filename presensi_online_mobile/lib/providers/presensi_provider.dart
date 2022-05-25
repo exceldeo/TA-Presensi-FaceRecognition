@@ -91,12 +91,15 @@ class PresensiProvider with ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> ubahPresensi(
-      {idPresensiMahasiswa: String}) async {
+      {idPresensiMahasiswa: String, img: String}) async {
     var result;
 
-    Response response = await get(
+    Response response = await post(
       AppConstants.BASE_URL + "${idPresensiMahasiswa}/updateAbsensi",
+      body: {'img': img},
     );
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    print(responseData['data']);
 
     if (response.statusCode == 200) {
       result = {

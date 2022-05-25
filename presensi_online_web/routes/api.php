@@ -18,5 +18,5 @@ Route::get('dosen', 'api\ApiController@readDosen');
 Route::get('{nrp}/kelas', 'api\ApiController@readKelasByNrp');
 Route::get('{nrp}/mahasiswa', 'api\ApiController@getMahasiswaByNrp');
 Route::get('{nrp}/{kodePresensi}/absensi', 'api\ApiController@absensi');
-Route::get('{idPresensi}/updateAbsensi', 'api\ApiController@updateAbsensi');
+Route::post('{idPresensi}/updateAbsensi', 'api\ApiController@updateAbsensi');
 Route::get('{jadwalMahasiswa}/presensi', 'api\ApiController@getPresensiByJadwalMahasiswa');

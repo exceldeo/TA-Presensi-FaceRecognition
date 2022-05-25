@@ -100,7 +100,8 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                     final Future<Map<String, dynamic>> successfulMessage =
                         presensiProvider.ubahPresensi(
                             idPresensiMahasiswa:
-                                widget.idPresensiMahasiswa.toString());
+                                widget.idPresensiMahasiswa.toString(),
+                            img: this.encoded);
 
                     successfulMessage.then((response) {
                       if (response['status']) {
