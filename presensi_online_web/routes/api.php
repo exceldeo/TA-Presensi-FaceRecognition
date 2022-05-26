@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('login', 'api\ApiController@login');
-Route::get('dosen', 'api\ApiController@readDosen');
 Route::get('{nrp}/kelas', 'api\ApiController@readKelasByNrp');
 Route::get('{nrp}/mahasiswa', 'api\ApiController@getMahasiswaByNrp');
 Route::get('{nrp}/{kodePresensi}/absensi', 'api\ApiController@absensi');

@@ -39,7 +39,7 @@ class ApiController extends Controller
 
     public function getMahasiswaByNrp($nrp)
     {
-        $mahasiswa = Mahasiswa::where('nrp', $nrp)->first();
+        $mahasiswa = Mahasiswa::where('nrp', $nrp)->select('nrp', 'nama_mahasiswa', 'tahun_masuk', 'email', 'departement')->first();
         if (is_null($mahasiswa) ) {
             return response()->json([
                 'status' => 'error',
@@ -64,7 +64,7 @@ class ApiController extends Controller
                     ->join('matakuliah', 'matakuliah.id', '=', 'jadwal.id_matakuliah')
                     ->join('kelas', 'kelas.id', '=', 'jadwal.id_kelas')
                     ->join('jadwal_mahasiswa', 'jadwal_mahasiswa.id_jadwal', '=', 'jadwal.id')
-                    ->select('jadwal.id as id_jadwal', 'jadwal.*', 'dosen.*', 'matakuliah.*', 'kelas.*','jadwal_mahasiswa.id as id_jadwal_mahasiswa')->first();
+                    ->select('jadwal.id as id_jadwal', 'jadwal.hari', 'jadwal.jam_mulai', 'jadwal.jam_akhir', 'jadwal.id_kelas', 'jadwal.id_matakuliah', 'dosen.nip', 'dosen.nama_dosen', 'matakuliah.kode_matakuliah', 'matakuliah.nama_matakuliah', 'kelas.nama_kelas', 'kelas.lokasi_kelas','jadwal_mahasiswa.id as id_jadwal_mahasiswa')->first();
             array_push($jadwals, $jadwal);
         }
 
@@ -89,7 +89,7 @@ class ApiController extends Controller
         foreach($presensiMahasiswas as $presensiMahasiswa){
             $presensi = PresensiMahasiswa::where('presensi_mahasiswa.id', $presensiMahasiswa->id)
                         ->join('presensi','presensi.id','=', 'presensi_mahasiswa.id_presensi')
-                        ->select('presensi_mahasiswa.tanggal as tanggal_absen', 'presensi.tanggal as tanggal_presensi', 'presensi.*', 'presensi_mahasiswa.*')->first();
+                        ->select('presensi_mahasiswa.tanggal as tanggal_absen', 'presensi.tanggal as tanggal_presensi', 'presensi.jam_mulai', 'presensi.jam_akhir', 'presensi_mahasiswa.jam', 'presensi_mahasiswa.status')->first();
             array_push($presensis, $presensi);
         }
 
