@@ -178,8 +178,17 @@ class ApiController extends Controller
                         'jam'   => date('H:i:s'),
                         'status' => 1
                     ]);
+                    
+        $base64_string = $request->img; 
+        $image_name = "D:\\excel deo\\SMT 8\\TA\\TA-Presensi-FaceRecognition\\presensi_online_flask_masker\\";
 
+        $image    = "/cek.png";
+        $fullName = $image_name.$image;
+        $ifp = fopen($fullName, "wb");
+        fwrite($ifp, base64_decode($base64_string));
+        fclose($ifp);
 
+        $check_mask = file_get_contents("http://127.0.0.1:5000/predict_mask");
         //cek pemakaian masker
         if (is_null($presensi) ) {
             return response()->json([
@@ -187,10 +196,16 @@ class ApiController extends Controller
                 'message' => 'Kode Presensi tidak ditemukan'
             ], 401);
         }
+        else if($check_mask == "no_mask"){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Anda tidak memakai masker'
+            ], 401);
+        }
         else{
             return response()->json([
                 'status' => 'success',
-                'data' => $presensi
+                'data' => $check_mask
             ], 200);
         } 
         
