@@ -1,5 +1,5 @@
 class User {
-  int nrp;
+  String nrp;
   String namaMahasiswa;
   String tahunMasuk;
   String email;

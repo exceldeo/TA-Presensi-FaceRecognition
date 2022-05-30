@@ -8,14 +8,14 @@ class UserPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setString('namaMahasiswa', user.namaMahasiswa);
-    prefs.setString('nrp', user.nrp.toString());
+    prefs.setString('nrp', user.nrp);
     return true;
   }
 
   Future<UserPreferenceModel> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int nrp = int.parse(prefs.getString('nrp'));
+    String nrp = prefs.getString('nrp');
     String namaMahasiswa = prefs.getString('namaMahasiswa');
 
     return UserPreferenceModel(nrp: nrp, namaMahasiswa: namaMahasiswa);

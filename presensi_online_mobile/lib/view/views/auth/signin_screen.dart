@@ -52,7 +52,7 @@ class _SignInScreenState extends State<SignInScreen> {
               builder: (BuildContext context) => StartupScreen()));
         } else {
           final snackBar = SnackBar(
-            content: Text('Email atau password salah'),
+            content: Text('NRP atau Password salah'),
             backgroundColor: ColorResources.COLOR_BLACK,
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);

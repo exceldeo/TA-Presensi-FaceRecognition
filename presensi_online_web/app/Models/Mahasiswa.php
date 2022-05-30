@@ -8,6 +8,10 @@ class Mahasiswa extends Model
 {
     protected $table = 'mahasiswa';
     protected $primaryKey = 'nrp';
+
+    protected $casts = [
+        'nrp' => 'string',
+    ];
     
     protected $fillable = [
         'nama_mahasiswa', 'password', 'email', 'departement', 'tahun_masuk'

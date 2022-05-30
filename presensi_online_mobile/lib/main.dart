@@ -1,3 +1,5 @@
+import 'dart:io';
+
 // import 'package:presensi_online_mobile/provider/jadwal_kelas_provider.dart';
 // import 'package:presensi_online_mobile/provider/user_provider.dart';
 // import 'package:presensi_online_mobile/services/auth_services.dart';
@@ -12,6 +14,7 @@ import 'package:provider/provider.dart';
 // import 'di_container.dart' as di;
 
 Future<void> main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   // await di.init();
   runApp(MultiProvider(
@@ -44,5 +47,14 @@ class MyApp extends StatelessWidget {
         '/signIn': (context) => SignInScreen(),
       },
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

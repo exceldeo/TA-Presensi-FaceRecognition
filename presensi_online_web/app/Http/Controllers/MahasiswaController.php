@@ -46,8 +46,6 @@ class MahasiswaController extends Controller
                 'password' => bcrypt($request->password),
                 'departement' => $request->departement,
                 'tahun_masuk' => $request->angkatan,
-                'img_path' => 'belum',
-                'is_verifikasi' => 0,
             ]);
             $message = ["success" => "Mahasiswa berhasil di tambahkan!"];
 

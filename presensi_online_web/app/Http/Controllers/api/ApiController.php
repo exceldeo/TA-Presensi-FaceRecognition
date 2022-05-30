@@ -60,6 +60,7 @@ class ApiController extends Controller
         $jadwalMahasiswas = JadwalMahasiswa::where('nrp_mahasiswa', $nrp)->get();
         foreach($jadwalMahasiswas as $jadwalMahasiswa){
             $jadwal = Jadwal::where('jadwal.id', $jadwalMahasiswa->id_jadwal)
+                    ->where('jadwal_mahasiswa.nrp_mahasiswa', $nrp)
                     ->join('dosen', 'dosen.nip', '=', 'jadwal.id_dosen')
                     ->join('matakuliah', 'matakuliah.id', '=', 'jadwal.id_matakuliah')
                     ->join('kelas', 'kelas.id', '=', 'jadwal.id_kelas')

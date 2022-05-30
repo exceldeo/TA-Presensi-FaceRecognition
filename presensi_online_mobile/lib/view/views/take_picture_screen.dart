@@ -33,6 +33,8 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
   String encoded;
   File imageSelected;
 
+  String alert = '';
+
   @override
   Widget build(BuildContext context) {
     PresensiProvider presensiProvider = Provider.of<PresensiProvider>(context);
@@ -60,6 +62,19 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                   style: TextStyle(color: ColorResources.COLOR_WHITE),
                 ),
               ),
+              if (alert.isNotEmpty)
+                Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      color: ColorResources.COLOR_RED,
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  child: Text(
+                    alert,
+                    style: TextStyle(color: ColorResources.COLOR_WHITE),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               imageSelected != null
                   ? Container(
                       padding: EdgeInsets.all(3),
@@ -113,8 +128,12 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                               PageTransitionAnimation.cupertino,
                         );
                       } else {
+                        setState(() {
+                          this.alert =
+                              'Pastikan Anda Menggunakan Masker,Silahkan Coba Lagi';
+                        });
                         final snackBar = SnackBar(
-                          content: Text('Ada kesalahan'),
+                          content: Text('Anda Tidak Memakai Masker'),
                           backgroundColor: ColorResources.COLOR_BLACK,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);

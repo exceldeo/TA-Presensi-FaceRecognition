@@ -1,5 +1,5 @@
 class UserPreferenceModel {
-  int nrp;
+  String nrp;
   String namaMahasiswa;
 
   UserPreferenceModel({this.nrp, this.namaMahasiswa});

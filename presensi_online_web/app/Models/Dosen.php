@@ -9,6 +9,10 @@ class Dosen extends Authenticatable
 {
     protected $table = 'dosen';
     protected $primaryKey = 'nip';
+
+    protected $casts = [
+        'nip' => 'string',
+    ];
     
     protected $fillable = [
         'nama_dosen', 'password', 'email' , 'departement', 'role'
