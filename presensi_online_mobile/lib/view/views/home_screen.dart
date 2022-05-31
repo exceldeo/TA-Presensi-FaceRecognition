@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -28,6 +29,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   UserPreferenceModel _userPreference;
   String _namaMahasiswa = '';
+  String salam = '';
+  var now = new DateTime.now();
 
   Widget _homeToolbar(BuildContext context) {
     return Container(
@@ -43,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Selamat Pagi,",
+                  now.hour < 12 ? 'Selamat Pagi,' : 'Selamat Siang,',
                   style: khulaRegular.copyWith(
                       color: ColorResources.COLOR_BLACK,
                       fontSize: Dimensions.FONT_SIZE_DEFAULT),

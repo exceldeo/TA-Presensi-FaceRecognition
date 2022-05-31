@@ -44,13 +44,13 @@ class ApiController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'NRP tidak ditemukan'
-            ], 200);
+            ], 404);
         }
         else{
             return response()->json([
                 'status' => 'success',
                 'data' => $mahasiswa
-            ], 401);
+            ], 200);
         } 
     }
 

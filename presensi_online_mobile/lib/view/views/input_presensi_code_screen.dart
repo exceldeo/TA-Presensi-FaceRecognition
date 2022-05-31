@@ -55,7 +55,8 @@ class _InputPresensiCodeScreenState extends State<InputPresensiCodeScreen> {
             );
           } else {
             final snackBar = SnackBar(
-              content: Text('Kode Presensi Salah'),
+              content: Text(
+                  'Kode Presensi Salah atau anda sudah melakukan presensi'),
               backgroundColor: ColorResources.COLOR_BLACK,
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
