@@ -58,7 +58,7 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                     color: ColorResources.COLOR_PRIMARY,
                     borderRadius: BorderRadius.all(Radius.circular(16.0))),
                 child: Text(
-                  'Pastikan Anda Menggunakan Masker',
+                  'Pastikan Anda Menggunakan FaceShield',
                   style: TextStyle(color: ColorResources.COLOR_WHITE),
                 ),
               ),
@@ -130,10 +130,10 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                       } else {
                         setState(() {
                           this.alert =
-                              'Pastikan Anda Menggunakan Masker,Silahkan Coba Lagi';
+                              'Pastikan Anda Menggunakan FaceShield,Silahkan Coba Lagi';
                         });
                         final snackBar = SnackBar(
-                          content: Text('Anda Tidak Memakai Masker'),
+                          content: Text('Anda Tidak Memakai FaceShield'),
                           backgroundColor: ColorResources.COLOR_BLACK,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);

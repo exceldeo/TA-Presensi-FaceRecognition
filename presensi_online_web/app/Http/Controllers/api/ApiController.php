@@ -175,7 +175,7 @@ class ApiController extends Controller
     public function updateAbsensi($idPresensi, Request $request){
                     
         $base64_string = $request->img; 
-        $image_name = "D:\\excel deo\\SMT 8\\TA\\TA-Presensi-FaceRecognition\\presensi_online_flask_masker\\";
+        $image_name = "C:\\xampp\htdocs\\TA-Presensi-FaceRecognition\\presensi_online_flask_shield\\";
 
         $image    = "/cek.png";
         $fullName = $image_name.$image;
@@ -184,9 +184,9 @@ class ApiController extends Controller
         fclose($ifp);
         $presensi = 0;
         
-        $check_mask = file_get_contents("http://127.0.0.1:5000/predict_mask");
+        $check_shield = file_get_contents("http://127.0.0.1:5000/predict_shield");
         
-        if($check_mask == "mask"){
+        if($check_shield == "shield"){
             $presensi = PresensiMahasiswa::where('id', $idPresensi)
                 ->update([
                     'tanggal' => date('Y-m-d'),
@@ -201,16 +201,16 @@ class ApiController extends Controller
                 'message' => 'Kode Presensi tidak ditemukan'
             ], 401);
         }
-        else if($check_mask == "no_mask"){
+        else if($check_shield == "noshield"){
             return response()->json([
                 'status' => 'error',
-                'message' => 'Anda tidak memakai masker'
+                'message' => 'Anda tidak memakai faceshield'
             ], 401);
         }
         else{
             return response()->json([
                 'status' => 'success',
-                'data' => $check_mask
+                'data' => $check_shield
             ], 200);
         } 
         
