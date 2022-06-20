@@ -77,8 +77,8 @@ class ApiController extends Controller
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Tidak ada kelas'
-            ], 401);
+                'message' => 'Terjadi kesalahan'
+            ], 404);
         }
     }
 
@@ -94,12 +94,11 @@ class ApiController extends Controller
             array_push($presensis, $presensi);
         }
 
-        // $mahasiswa = Mahasiswa::where('nrp', $nrp)->first();
         if (is_null($presensis) ) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Presensi tidak ditemukan'
-            ], 401);
+            ], 404);
         }
         else{
             return response()->json([
@@ -129,7 +128,7 @@ class ApiController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Tidak ada kelas'
-            ], 401);
+            ], 400);
         }
     }
 
@@ -141,13 +140,11 @@ class ApiController extends Controller
                     ->select('presensi_mahasiswa.status', 'presensi.id_jadwal','presensi_mahasiswa.id')
                     ->first();
 
-                    // dd($presensi);
-
         if (is_null($presensi) || $presensi->status == 1) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Kode Presensi tidak ditemukan atau anda sudah absen'
-            ], 401);
+            ], 400);
         }
         else{
             $jadwal = Jadwal::where('jadwal.id', $presensi->id_jadwal)
@@ -182,38 +179,33 @@ class ApiController extends Controller
         $ifp = fopen($fullName, "wb");
         fwrite($ifp, base64_decode($base64_string));
         fclose($ifp);
-        $presensi = 0;
-        
-        $check_mask = file_get_contents("http://127.0.0.1:5000/predict_mask");
-        
-        if($check_mask == "mask"){
-            $presensi = PresensiMahasiswa::where('id', $idPresensi)
-                ->update([
-                    'tanggal' => date('Y-m-d'),
-                    'jam'   => date('H:i:s'),
-                    'status' => 1
-                ]);
-        }
-        //cek pemakaian masker
-        if (is_null($presensi) ) {
+
+        if (($check_mask = @file_get_contents("http://127.0.0.1:5000/predict_mask")) === false) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Kode Presensi tidak ditemukan'
-            ], 401);
+                'message' => 'Terjadi Kesalahan'
+            ], 500);
+        } else {
+            //cek pemakaian masker
+            if($check_mask == "mask"){
+                PresensiMahasiswa::where('id', $idPresensi)
+                    ->update([
+                        'tanggal' => date('Y-m-d'),
+                        'jam'   => date('H:i:s'),
+                        'status' => 1
+                    ]);
+                    return response()->json([
+                        'status' => 'success',
+                        'data' => 'Anda berhasil melakukan presensi'
+                    ], 200);
+            }
+            else if($check_mask == "no_mask"){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Anda tidak memakai masker'
+                ], 400);
+            }
         }
-        else if($check_mask == "no_mask"){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Anda tidak memakai masker'
-            ], 401);
-        }
-        else{
-            return response()->json([
-                'status' => 'success',
-                'data' => $check_mask
-            ], 200);
-        } 
-        
     }
 
 
