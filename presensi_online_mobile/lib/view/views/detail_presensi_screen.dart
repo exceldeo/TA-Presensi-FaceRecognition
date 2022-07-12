@@ -23,6 +23,14 @@ class DetailPresensiScreen extends StatefulWidget {
 }
 
 class _DetailPresensiScreenState extends State<DetailPresensiScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _isLoading = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     PresensiProvider _presensiProvider = Provider.of<PresensiProvider>(context);
@@ -43,9 +51,14 @@ class _DetailPresensiScreenState extends State<DetailPresensiScreen> {
     return Provider(
         lazy: false,
         create: (context) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _presensiProvider.fetchPresensi(
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            // print("isloading : " + _isLoading.toString());
+            await _presensiProvider.fetchPresensi(
                 idJadwalMahasiswa: widget.jadwalKelas.idJadwalMahasiswa);
+            setState(() {
+              _isLoading = false;
+            });
+            // print("isloading : " + _isLoading.toString());
           });
         },
         dispose: (context, data) => _presensiProvider.resetPresensi(),
@@ -177,7 +190,14 @@ class _DetailPresensiScreenState extends State<DetailPresensiScreen> {
                         ],
                       ),
                     ),
-                    _listPresensi(),
+                    _isLoading
+                        ? Container(
+                            margin: EdgeInsets.only(top: 10),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(top: 10),
+                            child: CircularProgressIndicator(),
+                          )
+                        : _listPresensi(),
                     // Container(
                     //   child: ListView(
                     //     primary: false,

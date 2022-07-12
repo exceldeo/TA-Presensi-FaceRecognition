@@ -3,6 +3,7 @@
 // import 'package:presensi_online_mobile/services/auth_services.dart';
 import 'package:presensi_online_mobile/models/user.dart';
 import 'package:presensi_online_mobile/providers/user_provider.dart';
+import 'package:presensi_online_mobile/utility/loader.dart';
 import 'package:presensi_online_mobile/view/views/auth/widget/social_media_widget.dart';
 import 'package:presensi_online_mobile/view/views/startup_screen.dart';
 import 'package:presensi_online_mobile/view/widgets/button/custom_button.dart';
@@ -23,6 +24,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  bool _load = false;
+
   @override
   void initState() {
     super.initState();
@@ -37,20 +40,45 @@ class _SignInScreenState extends State<SignInScreen> {
     FocusNode _passNode = FocusNode();
     String alert = "";
 
+    void _showLoadingIndicator() {
+      print('isloading');
+      setState(() {
+        _load = true;
+      });
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        setState(() {
+          _load = false;
+        });
+        print(_load);
+      });
+    }
+
     var login = () {
       // Navigator.pushNamed(context, RouteConstants.landingPage);
-
+      // _showLoadingIndicator();
       final Future<Map<String, dynamic>> successfulMessage = userProvider.login(
           nrp: _nrpController.value.text.trim(),
           password: _passwordController.value.text.trim());
+      print(_load);
+      setState(() {
+        _load = true;
+      });
+      print(_load);
 
       successfulMessage.then((response) {
         if (response['status']) {
+          setState(() {
+            _load = false;
+          });
+
           User user = response['user'];
           Provider.of<UserProvider>(context, listen: false).setUser(user);
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (BuildContext context) => StartupScreen()));
         } else {
+          setState(() {
+            _load = false;
+          });
           final snackBar = SnackBar(
             content: Text('NRP atau Password salah'),
             backgroundColor: ColorResources.COLOR_BLACK,
@@ -61,8 +89,9 @@ class _SignInScreenState extends State<SignInScreen> {
     };
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+          child: Stack(children: [
+        SingleChildScrollView(
           child: Container(
             color: ColorResources.COLOR_BACKGROUND,
             child: Column(
@@ -158,7 +187,8 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
         ),
-      ),
+        Container(child: _load ? Loader(loadingTxt: 'Loading...') : Container())
+      ])),
     );
   }
 }

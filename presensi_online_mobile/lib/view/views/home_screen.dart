@@ -30,7 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   UserPreferenceModel _userPreference;
   String _namaMahasiswa = '';
   String salam = '';
+  bool _isLoading = true;
   var now = new DateTime.now();
+  var indicator = new GlobalKey<RefreshIndicatorState>();
 
   Widget _homeToolbar(BuildContext context) {
     return Container(
@@ -84,23 +86,33 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     JadwalProvider _jadwalKelasProvider = Provider.of<JadwalProvider>(context);
 
-    _list() => Container(
-          color: ColorResources.COLOR_WHITE,
-          child: ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            itemCount: _jadwalKelasProvider.jadwalList.length,
-            itemBuilder: (context, index) {
-              return ClassCardWidget(_jadwalKelasProvider.jadwalList[index]);
-            },
-          ),
-        );
+    _list() => _jadwalKelasProvider.jadwalList.length > 0
+        ? Container(
+            color: ColorResources.COLOR_WHITE,
+            child: ListView.builder(
+              primary: false,
+              shrinkWrap: true,
+              itemCount: _jadwalKelasProvider.jadwalList.length,
+              itemBuilder: (context, index) {
+                return ClassCardWidget(_jadwalKelasProvider.jadwalList[index]);
+              },
+            ),
+          )
+        : Container(
+            margin: EdgeInsets.all(10),
+            child: Center(child: Text("Tidak ada kelas")),
+          );
 
     return Provider(
       lazy: false,
       create: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _jadwalKelasProvider.fetchJadwal();
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          Map<String, dynamic> result =
+              await _jadwalKelasProvider.fetchJadwal();
+          setState(() {
+            _isLoading = false;
+          });
+          // print('status : ' + result['status'].toString());
         });
       },
       dispose: (context, data) {},
@@ -173,7 +185,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: Dimensions.FONT_SIZE_LARGE,
                           fontWeight: FontWeight.bold)),
                 ),
-                _list()
+                _isLoading
+                    ? Container(
+                        margin: EdgeInsets.only(top: 30),
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.only(top: 10),
+                        child: CircularProgressIndicator(),
+                      )
+                    : _list()
               ],
             ),
           ),

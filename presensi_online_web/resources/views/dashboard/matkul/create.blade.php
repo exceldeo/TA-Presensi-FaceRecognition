@@ -93,6 +93,7 @@ Tambah Mata Kuliah
                                 <option value="Teknik Kimia Industri">Teknik Kimia Industri</option>
                                 <option value="Teknik Instrumentasi">Teknik Instrumentasi</option>
                                 <option value="Statistika Bisnis">Statistika Bisnis</option>
+                                <option value="UPMB">UPMB</option>
                             </select>
                         </div>
                     </div>
