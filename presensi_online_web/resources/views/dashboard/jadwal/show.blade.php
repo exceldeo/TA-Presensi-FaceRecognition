@@ -108,7 +108,7 @@ Jadwal Mahasiswa
                                 <th class="text-center" >Jam Selesai</th>
                                 <th class="text-center" >Tanggal</th>
                                 <th class="text-center" >Kode Presensi</th>
-                                <th class="text-center" style="width:100px">Aksi</th>
+                                <th class="text-center" style="width: 10px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,12 +121,8 @@ Jadwal Mahasiswa
                                     <td>{{ $presensi->kode_presensi }}</td>
                                     <td>
                                         <a href="{{route('dosen.jadwal.mahasiswa.kehadiran.edit', ['id' => $jadwal->id_jadwal, 'id_presensi' => $presensi->id])}}">
-                                            <button class="btn btn-sm btn-warning pull-right mr-3"><i
+                                            <button class="btn btn-sm btn-warning pull-left mr-3"><i
                                                     class="fa fa-pencil mr-1"></i> Edit</button>
-                                        </a>
-                                        <a href="{{route('dosen.jadwal.mahasiswa.kehadiran.show', ['id' => $jadwal->id_jadwal, 'id_presensi' => $presensi->id])}}">
-                                            <button class="btn btn-sm btn-its-primary pull-right mr-3"><i
-                                                    class="fa fa-eye mr-1"></i> Kode Presensi</button>
                                         </a>
                                     </td>
                                 </tr>

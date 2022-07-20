@@ -25,7 +25,7 @@ model = load_model(MODEL_PATH,compile=False)
 
 @app.route('/predict_shield')
 def index_shield():
-    file = 'cek.png'
+    file = 'Foto/shield62.jpeg'
 
     # Parameters
     input_size = (150,150)
