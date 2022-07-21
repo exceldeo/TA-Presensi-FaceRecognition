@@ -37,6 +37,8 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
   bool instruksi = true;
   String alert = '';
   bool _load = false;
+  bool instruksiLoading = false;
+  bool instruksiBerhasil = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,30 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(16.0))),
                     child: Text(
                       'Pastikan Anda Menggunakan Masker',
+                      style: TextStyle(color: ColorResources.COLOR_WHITE),
+                    ),
+                  ),
+                if (instruksiLoading)
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                        color: ColorResources.COLOR_COLUMBIA_BLUE,
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                    child: Text(
+                      'Mohon Tunggu...',
+                      style: TextStyle(color: ColorResources.COLOR_WHITE),
+                    ),
+                  ),
+                if (instruksiBerhasil)
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                        color: ColorResources.COLOR_GREEN,
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                    child: Text(
+                      'Anda Terdeteksi Mengunakan Masker',
                       style: TextStyle(color: ColorResources.COLOR_WHITE),
                     ),
                   ),
@@ -120,7 +146,9 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                           this.path = value.path;
                           this.encoded =
                               base64Encode(File(value.path).readAsBytesSync());
-                          _load = true;
+                          // _load = true;
+                          instruksiLoading = true;
+                          instruksi = false;
                         });
                       }
                       ;
@@ -134,7 +162,9 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                       successfulMessage.then((response) {
                         if (response['status']) {
                           setState(() {
-                            _load = false;
+                            instruksiLoading = false;
+                            instruksiBerhasil = true;
+                            // _load = false;
                           });
                           pushNewScreen(
                             context,
@@ -145,18 +175,18 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                           );
                         } else {
                           setState(() {
-                            _load = false;
-                          });
-                          setState(() {
+                            instruksiLoading = false;
+                            // _load = false;
                             this.alert =
                                 'Pastikan Anda Menggunakan Masker, Silahkan Coba Lagi';
                             instruksi = false;
+                            instruksiBerhasil = false;
                           });
-                          final snackBar = SnackBar(
-                            content: Text('Anda Tidak Memakai Masker'),
-                            backgroundColor: ColorResources.COLOR_BLACK,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          // final snackBar = SnackBar(
+                          //   content: Text('Anda Tidak Memakai Masker'),
+                          //   backgroundColor: ColorResources.COLOR_BLACK,
+                          // );
+                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       });
                     },
