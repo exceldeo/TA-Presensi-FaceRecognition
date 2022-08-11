@@ -282,7 +282,7 @@ class Strings {
   static const String LANGUAGE_INDIAN = 'English (Indian)';
 
   //myits presensi
-  static const String MYITS_ID = 'MyITS ID';
+  static const String MYITS_ID = 'Username';
   static const String DETAIL_PRESENSI = 'Detail Presensi';
   static const String LOGOUT = 'Logout';
   static const String NAMA = 'Nama';

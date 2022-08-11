@@ -166,13 +166,13 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                             instruksiBerhasil = true;
                             // _load = false;
                           });
-                          pushNewScreen(
-                            context,
-                            screen: SuccessScreen(),
-                            withNavBar: false,
-                            pageTransitionAnimation:
-                                PageTransitionAnimation.cupertino,
-                          );
+                          // pushNewScreen(
+                          //   context,
+                          //   screen: SuccessScreen(),
+                          //   withNavBar: false,
+                          //   pageTransitionAnimation:
+                          //       PageTransitionAnimation.cupertino,
+                          // );
                         } else {
                           setState(() {
                             instruksiLoading = false;

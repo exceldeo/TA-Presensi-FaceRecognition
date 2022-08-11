@@ -3,6 +3,7 @@ import cv2
 import time
 import operator
 import warnings
+import os
 warnings.filterwarnings("ignore")
 
 DIM=224
@@ -64,10 +65,11 @@ def prediksiImg(nmFile,model):
             result = key
         prev_val = val
 
-    print(res)
-    print(result)
+    # print(res)
+    # print(result)
+    return result,prob
     
-    return "test"
+    # return "test"
     
     # rank = 0
     # prev_val = 0
@@ -104,6 +106,14 @@ if __name__ == '__main__':
     # print("%s" %(r))
 
     model=loadModel('mobileNet_Mask.pkl')
-    nmFile = 'test2.jpg'
-    r = prediksiImg(nmFile,model)
-    print(r)
+    # nmFile = '18514.jpg'
+
+    files = os.listdir('test')
+    print(files)
+    for file in files:
+        # do something
+        print(file)
+        r = prediksiImg('test/'+file,model)
+        print(r)
+    # r = prediksiImg(nmFile,model)
+    # print(r)
